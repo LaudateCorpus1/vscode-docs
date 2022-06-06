@@ -59,7 +59,7 @@ Test the web app by browsing to [http://localhost:8080](http://localhost:8080) u
 
 ## Make a change
 
-Let's now edit `HelloController.java` to change "Greetings from Spring Boot!" to something else like "Hello World". VS Code provides a great editing experience for Java, check out [Editing and Navigating Code](/docs/languages/java.md#editing-and-navigating-code) to learn about VS Code's editing and code navigation features.
+Let's now edit `HelloController.java` to change "Greetings from Spring Boot!" to something else like "Hello World". VS Code provides a great editing experience for Java, check out [Navigating and edit Java](/docs/java/java-editing.md) to learn about VS Code's editing and code navigation features.
 
 Click the **Restart** button on the top of the editor to relaunch the app and see result by reloading the browser.
 
@@ -183,5 +183,5 @@ Alternatively, you can also use Maven to package and run your project as steps b
 
 ## Next steps
 
-- To containerize and deploy a web application, check out the [Docker Container Tutorial](/docs/azure/docker.md).
+- To containerize and deploy a web application, check out the [Docker in VS Code](/docs/containers/overview.md).
 - To learn more about Java Debugging features, see the [Java Debugging Tutorial](/docs/java/java-debugging.md).

@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: A9D40038-7837-4320-8C2D-E0CA5769AA69
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Visual Studio Code language extensions contribute programming language features. These guidelines present the language features available in Visual Studio Code and explain the API.
@@ -554,11 +554,11 @@ In addition, your language server needs to respond to the `textDocument/codeActi
 #### Direct Implementation
 
 ```typescript
-class GoCodeActionProvider implements vscode.CodeActionProvider {
+class GoCodeActionProvider implements vscode.CodeActionProvider<vscode.CodeAction> {
     public provideCodeActions(
-        document: vscode.TextDocument, range: vscode.Range,
+        document: vscode.TextDocument, range: vscode.Range | vscode.Selection,
         context: vscode.CodeActionContext, token: vscode.CancellationToken):
-        Thenable<vscode.Command[]> {
+        Thenable<vscode.CodeAction[]> {
     ...
     }
 }

@@ -4,7 +4,7 @@ Area: getstarted
 TOCTitle: User Interface
 ContentId: 3a33f35b-cded-4f7f-8674-6f2ba5fca023
 PageTitle: Visual Studio Code User Interface
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: A quick overview of the Visual Studio Code user interface. Learn about the editor, window management, and special UI to handle source control, extension management, full text search and more.
 ---
 # User Interface
@@ -60,7 +60,7 @@ A Minimap (code outline) gives you a high-level overview of your source code, wh
 
 ### Indent Guides
 
-The image above also shows indentation guides (vertical lines) which help you quickly see matching indent levels. If you would like to disable indent guides, you can set `"editor.renderIndentGuides": false` in your user or workspace [settings](/docs/getstarted/settings.md).
+The image above also shows indentation guides (vertical lines) which help you quickly see matching indent levels. If you would like to disable indent guides, you can set `"editor.guides.indentation": false` in your user or workspace [settings](/docs/getstarted/settings.md).
 
 ## Breadcrumbs
 
@@ -198,7 +198,7 @@ You can also hide the Menu Bar on Windows and Linux with the **View** > **Toggle
 
 ### Settings
 
-Most editor configurations are kept in settings which can be modified directly. You can set options globally through user settings or per project/folder through workspace settings. Settings values are kept in a `settings.json` [file](/docs/getstarted/settings.md#settings-file-locations).
+Most editor configurations are kept in settings which can be modified directly. You can set options globally through user settings or per project/folder through workspace settings. Settings values are kept in a `settings.json` [file](/docs/getstarted/settings.md#settingsjson).
 
 * Select **File** > **Preferences** > **Settings** (or press `kb(workbench.action.openSettings)`) to edit the user `settings.json` file.
 * To edit workspace settings, select the **WORKSPACE SETTINGS** tab to edit the workspace `settings.json` file.
@@ -373,7 +373,7 @@ Now that you know the overall layout of VS Code, start to customize the editor t
 
 ### How can I change the color of the indent guides?
 
-The indent guide colors are customizable as are most VS Code UI elements. To [customize](/docs/getstarted/theme-color-reference.md) the indent guides color for your active color theme, use the `workbench.colorCustomizations` [setting](/docs/getstarted/settings.md) and modify the `editorIndentGuide.background` value.
+The indent guide colors are customizable as are most VS Code UI elements. To [customize](/api/references/theme-color.md) the indent guides color for your active color theme, use the `workbench.colorCustomizations` [setting](/docs/getstarted/settings.md) and modify the `editorIndentGuide.background` value.
 
 For example, to make the indent guides bright blue, add the following to your `settings.json`:
 

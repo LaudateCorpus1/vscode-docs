@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 38af73fd-ca95-48e3-9965-81f4cfe29996
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 
 MetaDescription: Visual Studio Code when clause context reference.
 ---
@@ -29,7 +29,7 @@ Inequality | `!=` | `"resourceExtname != .js"`
 Or | <code>\|\|</code> | `"isLinux`<code>\|\|</code>`isWindows"`
 And | `&&` | `"textInputFocus && !editorReadonly"`
 Not | `!` | `!editorReadonly`
-Matches | `=~` | `"resourceScheme =~ /^untitled$|^file$/"`
+Matches | `=~` | `"resourceScheme =~ /^untitled$\|^file$/"`
 Greater than | `>` `>=` | `"gitOpenRepositoryCount >= 1"`
 Less than | `<` `<=` | `"workspaceFolderCount < 2"`
 In | `in` | `resourceFilename in supportedFolders` ([details](#in-conditional-operator) below)
@@ -221,6 +221,7 @@ vscode.commands.executeCommand('setContext', 'ext.supportedFolders', [ 'test', '
 // or
 
 // Note in this case (using an object), the value doesn't matter, it is based on the existence of the key in the object
+// The value must be of a simple type
 vscode.commands.executeCommand('setContext', 'ext.supportedFolders', { 'test': true, 'foo': 'anything', 'bar': false });
 ```
 

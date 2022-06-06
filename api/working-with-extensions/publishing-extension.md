@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 7EA90618-43A3-4873-A9B5-61CC131CE4EE
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Learn how to publish Visual Studio Code extensions to the public Marketplace and share them with other developers.
@@ -144,6 +144,16 @@ vsce unpublish (publisher name).(extension name)
 
 > **Note:** When you unpublish an extension, the Marketplace will remove any extension statistics it has collected. You may want to update your extension rather than unpublish it.
 
+## Deprecating extensions
+
+An extension can be just deprecated or deprecated in favour of another extension or a setting. VS Code will not automatically migrate or uninstall deprecated extensions. VS Code will render extensions as deprecated in the UI, as shown in the search sample below where the first result is deprecated. If a deprecated extension has an alternative extension or a setting the VS Code UI will guide users to migrate to the new extension or setting.
+
+![Rust extension shown as deprecated in extension search](images/publishing-extension/deprecated.png)
+
+In order to mark your extension as deprecated please reach out to us by commenting [here](https://github.com/microsoft/vscode-discussions/discussions/1).
+
+> **Note:** For now the extension will not be rendered as deprecated in the Marketplace. Support for this will come later.
+
 ## Packaging extensions
 
 If you want to test an extension on your local install of VS Code or distribute an extension without publishing it to VS Code Marketplace, you can choose to package your extension. `vsce` can package your extension into a `VSIX` file, from which users can easily install. Some extensions publish VSIX files to each GitHub release.
@@ -223,6 +233,24 @@ Eligible domains meet the following criteria:
 - Cannot be a subdomain ({subdomain}.github.io, {subdomain}.contoso.com, or similar).
 - You must be able to manage the DNS configuration settings and add a TXT record.
 - Your domain must use HTTPS protocol.
+- Your domain must be able to serve an HTTP 200 status response to a HEAD request.
+
+### Extension Sponsor
+
+An extension can opt-in to sponsorship by adding a `sponsor` field in the extension's `package.json`. For example:
+```json
+"sponsor": {
+  "url": "https://github.com/sponsors/nvaccess"
+}
+```
+>**Note:** Make sure to use `vsce` version >= `2.9.1` when publishing your extension
+
+If an extension opts-into this VS Code will render a Sponsor button in the extension details page.
+
+![Sponsor button in extension details page](images/publishing-extension/sponsor.png)
+
+
+We hope this will allow our users to fund the extensions that they depend on to improve the extension's performance, reliability, and stability.
 
 ### Using .vscodeignore
 
@@ -260,6 +288,31 @@ It's possible to add a pre-publish step to your manifest file. The command will 
 
 This will always invoke the [TypeScript](https://www.typescriptlang.org/) compiler whenever the extension is packaged.
 
+### Pre-release extensions
+
+Users can choose to install pre-release versions of extensions in VS Code or VS Code Insiders in order to regularly get the latest extension version before the official extension release.
+
+![GitHub PR extension pre-release version in the extensions view](images/publishing-extension/pre-release.png)
+
+For extensions to publish a pre-release version, a `pre-release` flag needs to be passed in the publish step:
+
+```bash
+vsce publish --pre-release
+```
+
+Alternatively, the `pre-release` flag can also be passed in the `package` step.
+
+We only support `major.minor.patch` for extension versions and `semver` pre-release tags are not supported. Support for this will arrive in the future.
+
+VS Code will auto update extensions to the highest version available, so even if a user opted into a pre-release version and there is an extension release with a higher version, that user will be updated to the released version.
+Because of this we recommend that extensions use `major.EVEN_NUMBER.patch` for release versions and `major.ODD_NUMBER.patch` for pre-release versions. For example: `0.2.*` for release and `0.3.*` for pre-release.
+
+If extension authors do not want their pre-release users to be updated to the release version, we recommend to always increment and publish a new pre-release version before publishing a release version in order to make sure that the pre-release version is always higher.
+
+Pre-release extensions are supported after VS Code version `1.63.0` and so all pre-release extensions needs to set `vscode.engine` value in their `package.json` to `>= 1.63.0`.
+
+> **Note:** Extensions that already have a separate stand alone pre-release extension should reach out to the VS Code team to enable the automatic uninstall of the outdated separate extension and install of the pre-release version of the main extension.
+
 ### Platform-specific extensions
 
 Extensions can publish different VSIXs for each platform (Windows, Linux, macOS) VS Code is running on. We call such extensions  **platform-specific extensions**.
@@ -290,6 +343,8 @@ Alternatively, you can also use the `--target` option when packaging to simply c
 vsce package --target win32-x64
 vsce publish --packagePath PATH_TO_WIN32X64_VSIX
 ```
+
+If VS Code does not detect a specific VSIX for `win32-x64` or `win32-arm64` platforms it will fallback to `win32-ia32` vsix. Because of this we recommend that if you publish multiple platforms that you publish `win32-ia32` last to avoid some users on `win32-x64` or `win32-arm64` getting the fallback package, while the right package is about to get uploaded.
 
 #### Continuous Integration
 

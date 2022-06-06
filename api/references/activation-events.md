@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: C83BB647-A37E-45CE-BA4C-837B397C2ABE
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: To support lazy activation of Visual Studio Code extensions (plug-ins), your extension controls when it should be loaded through a set of Activation Events.
@@ -77,14 +77,15 @@ This activation event is emitted and interested extensions will be activated bef
 ...
 ```
 
+These are two more fine-grained `onDebug` activation events:
+
 ### onDebugInitialConfigurations
+
+`onDebugInitialConfigurations` is fired just before the `provideDebugConfigurations` method of the `DebugConfigurationProvider` is called.
 
 ### onDebugResolve
 
-These are two more fine-grained `onDebug` activation events:
-
-- `onDebugInitialConfigurations` is fired just before the `provideDebugConfigurations` method of the `DebugConfigurationProvider` is called.
-- `onDebugResolve:type` is fired just before the `resolveDebugConfiguration` method of the `DebugConfigurationProvider` for the specified type is called.
+`onDebugResolve:type` is fired just before the `resolveDebugConfiguration` method of the `DebugConfigurationProvider` for the specified type is called.
 
 **Rule of thumb:** If activation of a debug extension is lightweight, use `onDebug`. If it is heavyweight, use `onDebugInitialConfigurations` and/or `onDebugResolve` depending on whether the `DebugConfigurationProvider` implements the corresponding methods `provideDebugConfigurations` and/or `resolveDebugConfiguration`. See [Using a DebugConfigurationProvider](/api/extension-guides/debugger-extension#using-a-debugconfigurationprovider) for more details on these methods.
 
@@ -148,7 +149,7 @@ If the `vscode.git` extension defines `onUri` as an activation event, it will be
 
 This activation event is emitted and interested extensions will be activated whenever VS Code needs to restore a [webview](/api/extension-guides/webview) with the matching `viewType`.
 
-For example, the declaration of onWebviewPanel below:
+For example, the declaration of `onWebviewPanel` below:
 
 ```json
 "activationEvents": [
@@ -162,7 +163,7 @@ will cause the extension to be activated when VS Code needs to restore a webview
 
 This activation event is emitted and interested extensions will be activated whenever VS Code needs to create a [custom editor](/api/extension-guides/custom-editors) with the matching `viewType`.
 
-For example, the declaration of onCustomEditor below:
+For example, the declaration of `onCustomEditor` below:
 
 ```json
 "activationEvents": [
@@ -176,7 +177,7 @@ will cause the extension to be activated when VS Code needs to restore a custom 
 
 This activation event is emitted and interested extensions will be activated whenever an extension requests an authentication session (via the `authentication.getSession()` API) with the matching `providerId`.
 
-For example, the declaration of onCustomEditor below:
+For example, the declaration of `onAuthenticationRequest` below:
 
 ```json
 "activationEvents": [

@@ -4,14 +4,14 @@ Area: languages
 TOCTitle: TypeScript
 ContentId: 05C114DF-4FDC-4C65-8954-58F5F293FAFD
 PageTitle: TypeScript Programming with Visual Studio Code
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: Get the best out editing TypeScript with Visual Studio Code.
 MetaSocialImage: images/typescript/Languages_typescript.png
 ---
 
 # TypeScript in Visual Studio Code
 
-[TypeScript](https://www.typescriptlang.org) is a typed superset of JavaScript that compiles to plain JavaScript. It offers classes, modules, and interfaces to help you build robust components. The [TypeScript language specification](https://github.com/microsoft/TypeScript/tree/master/doc) has full details about the language.
+[TypeScript](https://www.typescriptlang.org) is a typed superset of JavaScript that compiles to plain JavaScript. It offers classes, modules, and interfaces to help you build robust components.
 
 ![Working with TypeScript in Visual Studio Code](images/typescript/overview.png)
 
@@ -39,13 +39,13 @@ In addition to syntax highlighting, TypeScript and JavaScript also provide seman
 
 Syntax highlighting colors the text based on lexical rules. Semantic highlighting enriches the syntax coloring based on resolved symbol information from the language service.
 
-Whether semantic highlighting is visible depends on the current color theme. Each theme can [configure](/docs/getstarted/themes.md#semantic-highlighting) whether to display semantic highlighting and how it styles the semantic tokens.
+Whether semantic highlighting is visible depends on the current color theme. Each theme can [configure](/docs/getstarted/themes.md#editor-semantic-highlighting) whether to display semantic highlighting and how it styles the semantic tokens.
 
 If semantic highlighting is enabled and the color theme has a corresponding styling rule defined, different colors and styles can be seen.
 
 Semantic highlighting can change colors based on:
 
-* The resolved type of a symbol: namespace, variable, property, variable, property, class, interface, typeParameter.
+* The resolved type of a symbol: namespace, variable, property, variable, class, interface, typeParameter.
 * Whether the variable/property is read-only (const) or modifiable.
 * Whether the variable/property type is callable (a function type) or not.
 
@@ -117,7 +117,7 @@ You can disable auto imports by setting `"typescript.suggest.autoImports": false
 
 ## Formatting
 
-VS Code includes a TypeScript formatter that providers basic code formatting with reasonable defaults.
+VS Code includes a TypeScript formatter that provides basic code formatting with reasonable defaults.
 
 Use the `typescript.format.*` [settings](/docs/getstarted/settings.md) to configure the built-in formatter, such as making braces appear on their own line. Or, if the built-in formatter is getting in the way, set `"typescript.format.enable"` to `false` to disable it.
 
@@ -217,7 +217,7 @@ Unused TypeScript code, such as the `else` block of an `if` statement that is al
 
 You can quickly remove this unused code by placing the cursor on it and triggering the Quick Fix command (`kb(editor.action.quickFix)`) or clicking on the lightbulb.
 
-To disable fading out of unused code, set `"editor.showUnused"` to `false`. You can also disable fading of unused code only in TypeScriptScript by setting:
+To disable fading out of unused code, set `"editor.showUnused"` to `false`. You can also disable fading of unused code only in TypeScript by setting:
 
 ```json
 "[typescript]": {
@@ -289,7 +289,7 @@ Inlay hints add additional inline information to source code to help you underst
 
 This can help you understand the meaning of each argument at a glance, which is especially helpful for functions that take Boolean flags or have parameters that are easy to mix up.
 
-To enable parameter name hints, set `typescript.inlayHints.parameterNames`. There are three possible values:
+To enable parameter name hints, set `typescript.inlayHints.parameterNames.enabled`. There are three possible values:
 
 * `none` — Disable parameter inlay hints.
 * `literals` — Only show inlay hints for literals (string, number, Boolean).
@@ -361,7 +361,7 @@ You can debug your client-side code using a browser debugger such as the [built-
 
 ### Debug server side
 
-Debug Node.js in VS Code using the built-in debugger. Setup is easy and there is a [Node.js debugging tutorial](/docs/nodejs/nodejs-tutorial.md#debugging-your-express-application) to help you.
+Debug Node.js in VS Code using the built-in debugger. Setup is easy and there is a [Node.js debugging tutorial](/docs/nodejs/nodejs-tutorial.md#debug-your-express-app) to help you.
 
 ![debug data inspection](images/javascript/debug_data_inspection.gif)
 
@@ -369,7 +369,7 @@ Debug Node.js in VS Code using the built-in debugger. Setup is easy and there is
 
 [Linters](https://en.wikipedia.org/wiki/Lint_%28software%29) provides warnings for suspicious looking code. While VS Code does not include a built-in TypeScript linter, TypeScript linter [extensions](/docs/editor/extension-marketplace.md) available in the marketplace.
 
-[ESLint](https://eslint.org) is a popular linter, which also supports TypeScript. The [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) integrates ESLint into VS Code so you can see linting errors right in the editor and even quickly many of fix them with [Quick Fixes](#quick-fixes). [The ESLint plugin guide](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/README.md) details how to configure ESLint for your TypeScript projects.
+[ESLint](https://eslint.org) is a popular linter, which also supports TypeScript. The [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) integrates ESLint into VS Code so you can see linting errors right in the editor and even quickly many of fix them with [Quick Fixes](#quick-fixes). [The ESLint plugin guide](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/README.md) details how to configure ESLint for your TypeScript projects.
 
 ## TypeScript extensions
 

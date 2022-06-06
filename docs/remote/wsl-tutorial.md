@@ -5,11 +5,11 @@ TOCTitle: WSL Tutorial
 PageTitle: Work in Windows Subsystem for Linux with Visual Studio Code
 ContentId: 44988826-46b8-498a-b1c9-f821378c2870
 MetaDescription: Work in Windows Subsystem for Linux with Visual Studio Code
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 ---
 # Remote development in WSL
 
-This tutorial walks you through enabling [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install-win10) (WSL) and running Visual Studio Code in WSL using the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension.
+This tutorial walks you through enabling [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) (WSL) and running Visual Studio Code in WSL using the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension.
 
 ## Prerequisites
 
@@ -194,7 +194,7 @@ If you want to switch back to the Windows, select the **Show Local** option and 
 
 You can end your session in WSL and go back to running VS Code locally with **File** > **Close Remote Connection**.
 
-### Congratulations!
+### Congratulations
 
 Congratulations, you've successfully completed this tutorial!
 

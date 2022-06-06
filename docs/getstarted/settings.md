@@ -4,98 +4,225 @@ Area: getstarted
 TOCTitle: Settings
 ContentId: FDA6D86C-FF24-49BC-A1EB-E3BA43130FA0
 PageTitle: Visual Studio Code User and Workspace Settings
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: How to modify Visual Studio Code User and Workspace Settings.
 ---
 # User and Workspace Settings
 
 You can configure Visual Studio Code to your liking through its various settings. Nearly every part of VS Code's editor, user interface, and functional behavior has options you can modify.
 
-![VS Code settings](images/settings/hero.png)
-
-VS Code provides two different scopes for settings:
+VS Code provides several different scopes for settings. When you open a workspace, you will see at least the following two scopes:
 
 * **User Settings** - Settings that apply globally to any instance of VS Code you open.
 * **Workspace Settings** - Settings stored inside your workspace and only apply when the workspace is opened.
 
-Workspace settings override user settings. Workspace settings are specific to a project and can be shared across developers on a project.
+In this article, we'll first describe user settings as these are your personal settings for customizing VS Code. Later we'll cover [Workspace settings](#workspace-settings), which will be specific to the project you're working on.
 
->**Note**: A VS Code "workspace" is usually just your project root folder. Workspace settings as well as [debugging](/docs/editor/debugging.md) and [task](/docs/editor/tasks.md) configurations are stored at the root in a `.vscode` folder. You can also have more than one root folder in a VS Code workspace through a feature called [Multi-root workspaces](/docs/editor/multi-root-workspaces.md). You can learn more in the [What is a VS Code "workspace"?](/docs/editor/workspaces.md) article.
+## Settings editor
 
-## Creating User and Workspace Settings
+To modify user settings, you'll use the Settings editor to review and change VS Code settings.
 
-To open your user and workspace settings, use the following VS Code menu command:
+To open the Settings editor, use the following VS Code menu command:
 
 * On Windows/Linux - **File** > **Preferences** > **Settings**
 * On macOS - **Code** > **Preferences** > **Settings**
 
 You can also open the Settings editor from the **Command Palette** (`kb(workbench.action.showCommands)`) with **Preferences: Open Settings** or use the keyboard shortcut (`kb(workbench.action.openSettings)`).
 
-In the example below, the color theme and the file icon theme have been changed.
+When you open the Settings editor, you can search and discover the settings you are looking for. When you search using the Search bar, it will not only show and highlight the settings matching your criteria, but also filter out those which are not matching. This makes finding settings quick and easy.
 
-![Example Settings](images/settings/settings.png)
+![Filtering settings by searching in the Settings editor](images/settings/settings-search.png)
 
-Changes to settings are reloaded by VS Code as you change them. Modified settings are now indicated with a _blue line_ similar to modified lines in the editor. The gear icon opens a context menu with options to reset the setting to its default value as well as copy setting as JSON.
+In the example below, the Side Bar location and file icon theme have been changed.
 
->**Note:** Workspace settings are useful for sharing project specific settings across a team.
+![Modified settings in the Settings editor showing blue vertical bars to the left of them](images/settings/settings-modified.png)
 
-## Settings editor
+Changes to settings are applied by VS Code as you change them. Modified settings are indicated with a **blue line** similar to modified lines in the editor.
 
-When you open the settings editor, you can search and discover settings you are looking for. When you search using the Search bar, it will not only show and highlight the settings matching your criteria, but also filter out those which are not matching. This makes finding settings quick and easy.
+The gear icon (**More Actions...** `kb(settings.action.showContextMenu)`) opens a context menu with options to reset the setting to its default value as well as copy the setting ID or JSON name-value pair.
 
-![Settings Search](images/settings/settings-search.png)
-
-**Note**: VS Code extensions can also add their own custom settings and they will be visible under an **Extensions** section.
+![Settings edit gear context menu](images/settings/more-actions-context-menu.png)
 
 ### Edit settings
 
-Each setting can be edited by either a **checkbox**, an **input** or by a **dropdown**. Edit the text or select the option you want to change to the desired settings.
+Each setting can be edited by either a **checkbox**, an **input** or a **dropdown**. Edit the text or select the option you want to change to the desired settings.
 
-![Edit a Setting](images/settings/settings-edit.png)
+![An example setting with a dropdown](images/settings/settings-edit.png)
 
 ### Settings groups
 
-Default settings are represented in groups so that you can navigate them easily. It has a **Commonly Used** group at the top, which shows popular customizations.
+Settings are represented in groups so that you can navigate them easily. There is a **Commonly Used** group at the top, which shows popular customizations.
 
-![Settings Groups](images/settings/settings-groups.png)
+Below, the Source Control settings are focused by selecting **Source Control** in the tree view.
 
-Below is a [copy of the default settings](/docs/getstarted/settings.md#default-settings) that come with VS Code.
+![Settings editor with the Source Control section of the table of contents selected](images/settings/settings-groups.png)
 
-## Settings file locations
+**Note**: VS Code extensions can also add their own custom settings, and those settings will be visible under an **Extensions** section.
 
-By default VS Code shows the Settings editor, but you can still edit the underlying `settings.json` file by using the **Open Settings (JSON)** command or by changing your default settings editor with the `workbench.settings.editor` setting.
+## Changing a setting
+
+As an example, let's hide the Activity Bar from VS Code. The Activity Bar is the wide border on the left with various icons for different views such as the File Explorer, Search, Source Control, and Extensions. You might want to hide the Activity Bar to give the editor a little more room, or if you prefer to open views via the **View** menu or Command Palette.
+
+![Activity Bar display on the left of the editor](images/settings/activity-bar.png)
+
+Open the Settings Editor (`kb((workbench.action.openSettings)`) and type "activity" in the Search bar. You should see at least five settings.
+
+![Settings editor with 'activity' in the Search bar with at least five settings](images/settings/search-for-activity.png)
+
+You can further limit the scope to just those settings under the **Appearance** group in the table of contents on the left. There should now be just three settings.
+
+You can now check and uncheck the **Workbench** > **Activity Bar: Visible** setting to hide and unhide the Activity Bar. Notice that when you have changed the setting value to be different than the default value, you see a blue line to the left.
+
+![Activity Bar: Visible unchecked and Activity Bar is hidden](images/settings/activity-bar-hidden.png)
+
+You can always reset a setting to the default value by hovering over a setting to show the gear icon, clicking on the gear icon, and then selecting the **Reset Setting** action.
+
+## Settings editor filters
+
+The Settings editor Search bar has several filters to make it easier to manage your settings.
+To the right of the Search bar is a filter button with a funnel icon that provides some options to easily add a filter to the Search bar.
+
+### Modified settings
+
+To check which settings you have configured, there is a `@modified` filter in the Search bar. A setting shows up under this filter if its value differs from the default value, or if its value is explicitly set in the respective settings JSON file. This filter can be useful if you have forgotten whether you configured a setting, or if the editor is not behaving as you expect because you accidentally configured a setting.
+
+![Settings editor with @modified filter showing changed settings](images/settings/modified-filter-settings.png)
+
+### Other filters
+
+There are several other handy filters to help with searching through settings.
+
+![Setting editor @ tag filter dropdown](images/settings/settings-editor-filters.png)
+
+Here are some of the filters available:
+
+* `@ext` - Settings specific to an extension. You provide the extension ID such as `@ext:ms-python.python`.
+* `@feature` - Settings specific to a **Features** subgroup. For example, `@feature:explorer` shows settings of the File Explorer.
+* `@id` - Find a setting based on the setting ID. For example, `@id:workbench.activityBar.visible`.
+* `@lang` - Apply a language filter based on a language ID. For example, `@lang:typescript`. See [Language-specific editor settings](#language-specific-editor-settings) for more details.
+* `@tag` - Settings specific to a system of VS Code. For example, `@tag:workspaceTrust` for settings related to [Workspace Trust](/docs/editor/workspace-trust.md)
+
+The Search bar remembers your settings search queries and supports Undo/Redo (`kb(undo)`/`kb(redo)`). You can quickly clear a search term or filter with the **Clear Settings Search Input** button at the right of the Search bar.
+
+![Clear Settings Search Input button in the right of the Settings editor](images/settings/clear-search-input-button.png)
+
+## Extension settings
+
+Installed VS Code extensions can also contribute their own settings, which you can review under the **Extensions** section of the Settings editor.
+
+![C++ extension settings in the Settings editor](images/settings/cpp-extension-settings.png)
+
+You can also review an extension's settings from the Extensions view (`kb(workbench.view.extensions)`) by selecting the extension and reviewing the **Feature Contributions** tab.
+
+![Python extension Settings list under Feature Contributions tab](images/settings/python-feature-contributions.png)
+
+Extension authors can learn more about adding custom settings in the [configuration contribution point documentation](/api/references/contribution-points.md#contributes.configuration).
+
+## settings.json
+
+The Settings editor is the UI that lets you review and modify setting values that are stored in a `settings.json` file. You can review and edit this file directly by opening it in the editor with the **Preferences: Open Settings (JSON)** command. Settings are written as JSON by specifying the setting ID and value.
+
+![User settings.json open in the editor](images/settings/settings-json-in-editor.png)
+
+The `settings.json` file has full IntelliSense with smart completions for settings and values and description hovers. Errors due to incorrect setting names or JSON formatting are also highlighted.
+
+![IntelliSense for settings.json open in the editor](images/settings/settings-json-intellisense.png)
+
+Some settings can only be edited in `settings.json` such as **Workbench: Color Customizations** and show a **Edit in settings.json** link in the Settings editor.
+
+![Workbench: Color Customizations setting with Edit in settings.json link](images/settings/edit-in-settings-json-link.png)
+
+### Changing settings.json
+
+As an example, lets change the editor line number color. Click the **Edit in settings.json** link and add the following JSON:
+
+```json
+     "workbench.colorCustomizations": {
+        "editorLineNumber.foreground": "#00ff00"
+    }
+```
+
+Here the line numbers in the editor for the `settings.json` file are now green.
+
+![settings.json editor with green line numbers](images/settings/color-customization-example.png)
+
+Remove the `workbench.colorCustomizations` setting code block to return the line number color to the default.
+
+>**Note**: The example above changes the editor line number for all [Color Themes](/docs/getstarted/themes.md), but you can tune colors per [specific Color Theme](/docs/getstarted/themes.md#customizing-a-color-theme) or even [create your own Color Theme](/api/extension-guides/color-theme.md#create-a-new-color-theme) extension.
+
+If you prefer to always work directly with `settings.json`, you can set `"workbench.settings.editor": "json"` so that **File** > **Preferences** > **Settings** and the keybinding `kb(workbench.action.openSettings)` always opens the `settings.json` file and not the Setting editor UI.
+
+### Settings file locations
 
 Depending on your platform, the user settings file is located here:
 
 * **Windows** `%APPDATA%\Code\User\settings.json`
-* **macOS** `$HOME/Library/Application Support/Code/User/settings.json`
+* **macOS** `$HOME/Library/Application\ Support/Code/User/settings.json`
 * **Linux** `$HOME/.config/Code/User/settings.json`
+
+### Reset all settings
+
+While you can reset settings individually via the Settings editor **Reset Setting** command, you can reset all changed settings by opening `settings.json` and deleting the entries between the braces `{}`. Be careful since there will be no way to recover your previous setting values.
+
+## Workspace settings
+
+Workspace settings are specific to a project and can be shared across developers on a project. Workspace settings override user settings.
+
+>**Note**: A VS Code "workspace" is usually just your project root folder. Workspace settings as well as [debugging](/docs/editor/debugging.md) and [task](/docs/editor/tasks.md) configurations are stored at the root in a `.vscode` folder. You can also have more than one root folder in a VS Code workspace through a feature called [Multi-root workspaces](/docs/editor/multi-root-workspaces.md). You can learn more in the [What is a VS Code "workspace"?](/docs/editor/workspaces.md) article.
+
+You can edit via the Settings editor **Workspace** tab or open that tab directly with the **Preferences: Open Workspace Settings** command.
+
+![Settings editor with Workspace tab highlighted](images/settings/settings-editor-workspace-tab.png)
+
+All features of the Settings editor such as settings groups, search, and filtering behave the same for Workspace settings. Not all User settings are available as Workspace settings. For example, application-wide settings related to updates and security can not be overridden by Workspace settings.
+
+### Workspace settings.json location
+
+Similar to User Settings, Workspace Settings are also stored in a `settings.json` file, which you can edit directly via the **Preferences: Open Workspace Settings (JSON)** command.
 
 The workspace settings file is located under the `.vscode` folder in your root folder.
 
->**Note:** In case of a [Multi-root Workspace](/docs/editor/multi-root-workspaces.md#settings), workspace settings are located inside the workspace configuration file.
+![The File Explorer displaying settings.json under the .vscode folder](images/settings/settings-json-under-vscode.png)
+
+>**Note:** For a [Multi-root Workspace](/docs/editor/multi-root-workspaces.md#settings), workspace settings are located inside the workspace configuration file.
+
+When you add a Workspace Settings `settings.json` file to your project or source control, the settings for the project will be shared by all users of that project.
 
 ## Language-specific editor settings
 
-To customize your editor by language, run the global command **Preferences: Configure Language Specific Settings** (command ID: `workbench.action.configureLanguageBasedSettings`) from the **Command Palette** (`kb(workbench.action.showCommands)`) which opens the language picker. Select the language you want, which then opens your user `settings.json` with the language entry where you can add applicable settings.
+One way to customize language-specific settings is by opening the Settings editor, pressing on the filter button, and selecting the language option to add a language filter. Alternatively, one can directly type a language filter of the form `@lang:languageId` into the search widget. The settings that show up will be configurable for that specific language, and will show the setting value specific to that language, if applicable.
 
-![Configure language-specific settings command](images/settings/pref-config-lang-settings.png)
+When modifying a setting while there is a language filter in place, the setting will be configured in the given scope for that language.
+For example, when modifying the user-scope `diffEditor.codeLens` setting while there is a `@lang:css` filter in the search widget, the Settings editor will save the new value to the CSS-specific section of the user settings file.
+
+![Editing the CSS-specific user-scoped diffEditor.codeLens setting in the Settings editor](images/settings/settings-css-example.png)
+
+>**Note:** If you enter more than one language filter in the search widget, the current behaviour is that only the first language filter will be used.
+
+Another way to customize your editor by language is by running the global command **Preferences: Configure Language Specific Settings** (command ID: `workbench.action.configureLanguageBasedSettings`) from the **Command Palette** (`kb(workbench.action.showCommands)`) which opens the language picker. Select the language you want. Then, the Settings editor opens with a language filter for the selected language, which allows you to modify language-specific settings for that language. Though, if you have the `workbench.settings.editor` setting set to `json`, then the `settings.json` file opens with a new language entry where you can add applicable settings.
+
+![Configure language-specific settings command typed up in the Command Palette](images/settings/pref-config-lang-settings.png)
 
 Select the language via the dropdown:
 
 ![Select language dropdown](images/settings/lang-selection.png)
 
-Add language-specific settings to your user settings:
+Now you can start editing settings specifically for that language:
 
-![Add language-specific setting](images/settings/lang-based-settings.png)
+![Settings editor showing a specific language filter](images/settings/lang-based-settings-editor.png)
+
+Or, if `workbench.settings.editor` is set to `json`, now you can start adding language-specific settings to your user settings:
+
+![Suggestions for language-specific settings shown in the settings JSON file](images/settings/lang-based-settings.png)
 
 If you have a file open and you want to customize the editor for this file type, select the Language Mode in the Status Bar to the bottom-right of the VS Code window. This opens the Language Mode picker with an option **Configure 'language_name' language based settings**. Selecting this opens your user `settings.json` with the language entry where you can add applicable settings.
 
-Language-specific editor settings in your user settings override workspace settings.
+Language-specific editor settings always override non-language-specific editor settings, even if the non-language-specific setting
+has a narrower scope. For example, language-specific user settings override non-language-specific workspace settings.
 
-You can scope language-specific settings to the workspace by placing them in the workspace settings just like other settings. If you have settings defined for a language in both user and workspace scopes, then they are merged by giving precedence to the ones defined in the workspace.
+You can scope language-specific settings to the workspace by placing them in the workspace settings just like other settings. If you have settings defined for the same language in both user and workspace scopes, then they are merged by giving precedence to the ones defined in the workspace.
 
-The following examples customize editor settings for language modes `typescript` and `markdown`.
+The following example can be pasted into a settings JSON file to customize editor settings for the `typescript` and `markdown` language modes.
 
 ```json
 {
@@ -112,15 +239,22 @@ The following examples customize editor settings for language modes `typescript`
 }
 ```
 
-You can use IntelliSense in `settings.json` to help you find allowed language-based settings. All editor settings and some non-editor settings are supported. Some languages have default language-specific settings already set, which you can review in `defaultSettings.json` opened with the **Preferences: Open Default Settings** command.
+You can use IntelliSense in `settings.json` to help you find language-specific settings. All editor settings and some non-editor settings are supported. Some languages have default language-specific settings already set, which you can review in `defaultSettings.json` by running the **Preferences: Open Default Settings** command.
 
 ## Settings precedence
 
-Configurations can be overridden at multiple levels by the different setting scopes:
+Configurations can be overridden at multiple levels by the different setting scopes. In the following list, **later scopes override earlier scopes**:
 
+* Default settings - This scope represents the default unconfigured setting values.
 * User settings - Apply globally to all VS Code instances.
-* Workspace setting - Apply to the open folder or workspace and override User settings.
-* Workspace Folder settings - Apply to a specific folder of a [multi-root workspace](/docs/editor/multi-root-workspaces.md). Override User and Workspace settings.
+* Remote settings - Apply to a remote machine opened by a user.
+* Workspace settings - Apply to the open folder or workspace.
+* Workspace Folder settings - Apply to a specific folder of a [multi-root workspace](/docs/editor/multi-root-workspaces.md).
+* Language-specific default settings - These are language-specific default values that can be contributed by extensions.
+* Language-specific user settings - Same as User settings, but specific to a language.
+* Language-specific remote settings - Same as Remote settings, but specific to a language.
+* Language-specific workspace settings - Same as Workspace settings, but specific to a language.
+* Language-specific workspace folder settings - Same as Workspace Folder settings, but specific to a language.
 
 Setting values can be of various types:
 
@@ -130,9 +264,9 @@ Setting values can be of various types:
 * Array - `"editor.rulers": []`
 * Object - `"search.exclude": { "**/node_modules": true, "**/bower_components": true }`
 
-Values with primitive types and Array type are overridden but those with Object type are merged. For example, `workbench.colorCustomizations` takes an Object that specifies a group of UI elements and their desired colors.
+Values with primitive types and Array types are overridden, meaning a configured value in a scope that takes precedence over another scope is used instead of the value in the other scope. But, values with Object types are merged.
 
-If your user settings set the editor backgrounds to blue and green:
+For example, `workbench.colorCustomizations` takes an Object that specifies a group of UI elements and their desired colors. If your user settings set the editor backgrounds to blue and green:
 
 ```json
   "workbench.colorCustomizations": {
@@ -160,7 +294,7 @@ The result, when that workspace is open, is the combination of those two color c
   }
 ```
 
-If there are conflicting values, such as `editor.selectionBackground` in the example above, the usual override behavior occurs with workspace values taking precedence over user values.
+If there are conflicting values, such as `editor.selectionBackground` in the example above, the usual override behavior occurs, with workspace values taking precedence over user values, and language-specific values taking precedence over non-language-specific values.
 
 ## Settings and security
 
@@ -175,13 +309,38 @@ Here is the list of settings not supported in workspace settings:
 
 The first time you open a workspace that defines any of these settings, VS Code will warn you and then always ignore the values after that.
 
+## Settings Sync
+
+You can share your user settings across your VS Code instances with the [Settings Sync](/docs/editor/settings-sync.md) feature. This feature lets you share settings, keyboard shortcuts, and installed extensions across your VS Code installs on various machines. You can enable Settings Sync via the **Turn on Settings Sync** command on the right of the Settings editor or on the **Accounts** Activity Bar context menu.
+
+![Turn on Settings Sync command in the Accounts Activity Bar menu](images/settings/accounts-context-menu.png)
+
+You can learn more about turning on and configuring Settings Sync in the [Settings Sync](/docs/editor/settings-sync.md) user guide.
+
+## Common questions
+
+### VS Code says "Unable to write settings."
+
+If you try to change a setting (for example turning on Auto Save or selecting a new Color Theme) and you see "Unable to write into user settings. Please open user settings to correct errors/warnings in it and try again.", it means your `settings.json` file is ill-formed or has errors. The error can be as simple as a missing comma or incorrect setting value. Open the `settings.json` file with the **Preferences: Open Settings (JSON)** command and you should see the error highlighted with red squiggles.
+
+### How can I reset my user settings?
+
+The easiest way to reset VS Code back to the default settings is to clear your user `settings.json` file. You can open the `settings.json` file with the **Preferences: Open Settings (JSON)** command in the Command Palette (`kb(workbench.action.showCommands)`). Once the file is open in an editor, delete everything between the two curly braces `{}`, save the file, and VS Code will go back to using the default values.
+
+### When does it make sense to use workspace settings?
+
+If you're using a workspace that needs custom settings but you don't want to apply them to your other VS Code projects. A good example is language-specific linting rules.
+
+### Where can I find extension settings?
+
+In general, VS Code extensions store their settings in your user or workspaces settings files and they are available through the Settings editor UI (**Preferences: Open Settings (UI)**) or via IntelliSense in your `settings.json` file (**Preferences: Open Settings (JSON)**). Searching by the extension name (for example `gitlens` or `python`) can help filter down settings to just those contributed by an extension.
+
 ## Default settings
 
-Below are the Visual Studio Code default settings and their values. You can also view the default values in the Settings editor.
+Below are the Visual Studio Code default settings and their values. You can also view the default values in the Settings editor or see a read-only version of the `defaultSettings.json` via **Preferences: Open Default Settings (JSON)**.
 
 ```json
 {
-
 // Editor
 
     // Controls whether the editor shows CodeLens.
@@ -260,8 +419,11 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - never
     "editor.autoSurround": "languageDefined",
 
-    // Controls whether bracket pair colorization is enabled or not. Use 'workbench.colorCustomizations' to override the bracket highlight colors.
-    "editor.bracketPairColorization.enabled": false,
+    // Controls whether bracket pair colorization is enabled or not. Use `workbench.colorCustomizations` to override the bracket highlight colors.
+    "editor.bracketPairColorization.enabled": true,
+
+    // Controls whether each bracket type has its own independent color pool.
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": false,
 
     // Code action kinds to be run on save.
     "editor.codeActionsOnSave": {},
@@ -272,7 +434,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the font family for CodeLens.
     "editor.codeLensFontFamily": "",
 
-    // Controls the font size in pixels for CodeLens. When set to `0`, the 90% of `editor.fontSize` is used.
+    // Controls the font size in pixels for CodeLens. When set to `0`, 90% of `editor.fontSize` is used.
     "editor.codeLensFontSize": 0,
 
     // Controls whether the editor should render the inline color decorators and color picker.
@@ -453,10 +615,13 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - false: Disables horizontal bracket pair guides.
     "editor.guides.bracketPairsHorizontal": "active",
 
-    // Controls whether bracket pair guides are enabled or not.
+    // Controls whether the editor should highlight the active bracket pair.
     "editor.guides.highlightActiveBracketPair": true,
 
     // Controls whether the editor should highlight the active indent guide.
+    //  - true: Highlights the active indent guide.
+    //  - always: Highlights the active indent guide even if bracket guides are highlighted.
+    //  - false: Do not highlight the active indent guide.
     "editor.guides.highlightActiveIndentation": true,
 
     // Controls whether the editor should render indent guides.
@@ -483,8 +648,13 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls font family of inlay hints in the editor. When set to empty, the `editor.fontFamily` is used.
     "editor.inlayHints.fontFamily": "",
 
-    // Controls font size of inlay hints in the editor. A default of 90% of `editor.fontSize` is used when the configured value is less than `5` or greater than the editor font size.
+    // Controls font size of inlay hints in the editor. As default the `editor.fontSize` is used when the configured value is less than `5` or greater than the editor font size.
     "editor.inlayHints.fontSize": 0,
+
+    // Control if inlay hints temporarily show or hide when `Ctrl+Alt` is pressed and held.
+    //  - show: Inlay hints are hidden by default and only show when holding `Ctrl+Alt`
+    //  - hide: Inlay hints are showing by default and hide when holding `Ctrl+Alt`
+    "editor.inlayHints.toggle": null,
 
     // Controls whether to automatically show inline suggestions in the editor.
     "editor.inlineSuggest.enabled": true,
@@ -493,10 +663,10 @@ Below are the Visual Studio Code default settings and their values. You can also
     "editor.insertSpaces": true,
 
     // Defines the bracket symbols that increase or decrease the indentation.
-    "editor.language.brackets": false,
+    "editor.language.brackets": null,
 
     // Defines the bracket pairs that are colorized by their nesting level if bracket pair colorization is enabled.
-    "editor.language.colorizedBracketPairs": false,
+    "editor.language.colorizedBracketPairs": null,
 
     // Controls the letter spacing in pixels.
     "editor.letterSpacing": 0,
@@ -591,9 +761,9 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls whether suggestions should automatically show up while typing.
     "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": false
+        "other": "on",
+        "comments": "off",
+        "strings": "off"
     },
 
     // Controls the delay in milliseconds after which quick suggestions will show up.
@@ -603,7 +773,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     "editor.rename.enablePreview": true,
 
     // Controls whether the editor should render control characters.
-    "editor.renderControlCharacters": false,
+    "editor.renderControlCharacters": true,
 
     // Render last line number when the file ends with a newline.
     "editor.renderFinalNewline": true,
@@ -836,7 +1006,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - first: Always select the first suggestion.
     //  - recentlyUsed: Select recent suggestions unless further typing selects one, e.g. `console.| -> console.log` because `log` has been completed recently.
     //  - recentlyUsedByPrefix: Select suggestions based on previous prefixes that have completed those suggestions, e.g. `co -> console` and `con -> const`.
-    "editor.suggestSelection": "recentlyUsed",
+    "editor.suggestSelection": "first",
 
     // Enables tab completions.
     //  - on: Tab complete will insert the best matching suggestion when pressing tab.
@@ -855,6 +1025,30 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls whether clicking on the empty content after a folded line will unfold the line.
     "editor.unfoldOnClickAfterEndOfLine": false,
+
+    // Defines allowed characters that are not being highlighted.
+    "editor.unicodeHighlight.allowedCharacters": {},
+
+    // Unicode characters that are common in allowed locales are not being highlighted.
+    "editor.unicodeHighlight.allowedLocales": {
+        "_os": true,
+        "_vscode": true
+    },
+
+    // Controls whether characters are highlighted that can be confused with basic ASCII characters, except those that are common in the current user locale.
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+
+    // Controls whether characters in comments should also be subject to Unicode highlighting.
+    "editor.unicodeHighlight.includeComments": "inUntrustedWorkspace",
+
+    // Controls whether characters in strings should also be subject to Unicode highlighting.
+    "editor.unicodeHighlight.includeStrings": true,
+
+    // Controls whether characters that just reserve space or have no width at all are highlighted.
+    "editor.unicodeHighlight.invisibleCharacters": true,
+
+    // Controls whether all non-basic ASCII characters are highlighted. Only characters between U+0020 and U+007E, tab, line-feed and carriage-return are considered basic ASCII.
+    "editor.unicodeHighlight.nonBasicASCII": "inUntrustedWorkspace",
 
     // Remove unusual line terminators that might cause problems.
     //  - auto: Unusual line terminators are automatically removed.
@@ -904,10 +1098,10 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether inline actions are always visible in the Source Control view.
     "scm.alwaysShowActions": false,
 
-    // Controls whether repositories should always be visible in the SCM view.
+    // Controls whether repositories should always be visible in the Source Control view.
     "scm.alwaysShowRepositories": false,
 
-    // Controls whether the SCM view should automatically reveal and select files when opening them.
+    // Controls whether the Source Control view should automatically reveal and select files when opening them.
     "scm.autoReveal": true,
 
     // Controls the count badge on the Source Control icon on the Activity Bar.
@@ -920,6 +1114,12 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - tree: Show the repository changes as a tree.
     //  - list: Show the repository changes as a list.
     "scm.defaultViewMode": "list",
+
+    // Controls the default Source Control repository changes sort order when viewed as a list.
+    //  - name: Sort the repository changes by file name.
+    //  - path: Sort the repository changes by path.
+    //  - status: Sort the repository changes by Source Control status.
+    "scm.defaultViewSortKey": "path",
 
     // Controls diff decorations in the editor.
     //  - all: Show the diff decorations in all available locations.
@@ -934,6 +1134,12 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - none: Do nothing.
     "scm.diffDecorationsGutterAction": "diff",
 
+    // Controls whether a pattern is used for the diff decorations in gutter.
+    "scm.diffDecorationsGutterPattern": {
+        "added": false,
+        "modified": true
+    },
+
     // Controls the visibility of the Source Control diff decorator in the gutter.
     //  - always: Show the diff decorator in the gutter at all times.
     //  - hover: Show the diff decorator in the gutter only on hover.
@@ -941,6 +1147,12 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls the width(px) of diff decorations in gutter (added & modified).
     "scm.diffDecorationsGutterWidth": 3,
+
+    // Controls whether leading and trailing whitespace is ignored in Source Control diff gutter decorations.
+    //  - true: Ignore leading and trailing whitespace.
+    //  - false: Do not ignore leading and trailing whitespace.
+    //  - inherit: Inherit from `diffEditor.ignoreTrimWhitespace`.
+    "scm.diffDecorationsIgnoreTrimWhitespace": "false",
 
     // Controls the font for the input message. Use `default` for the workbench user interface font family, `editor` for the `editor.fontFamily`'s value, or a custom font family.
     "scm.inputFontFamily": "default",
@@ -954,10 +1166,16 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - visible: Show Source Control Provider count badges.
     "scm.providerCountBadge": "hidden",
 
+    // Controls the sort order of the repositories in the source control repositories view.
+    //  - discovery time: Repositories in the Source Control Repositories view are sorted by discovery time. Repositories in the Source Control view are sorted in the order that they were selected.
+    //  - name: Repositories in the Source Control Repositories and Source Control views are sorted by repository name.
+    //  - path: Repositories in the Source Control Repositories and Source Control views are sorted by repository path.
+    "scm.repositories.sortOrder": "discovery time",
+
     // Controls how many repositories are visible in the Source Control Repositories section. Set to `0` to be able to manually resize the view.
     "scm.repositories.visible": 10,
 
-    // Controls whether an action button can be shown in the SCM view.
+    // Controls whether an action button can be shown in the Source Control view.
     "scm.showActionButton": true,
 
 // Security
@@ -1010,14 +1228,15 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // If an editor matching one of the listed types is opened as the first in an editor group and more than one group is open, the group is automatically locked. Locked groups will only be used for opening editors when explicitly chosen by user gesture (e.g. drag and drop), but not by default. Consequently the active editor in a locked group is less likely to be replaced accidentally with a different editor.
     "workbench.editor.autoLockGroups": {
+        "default": false,
         "workbench.input.interactive": false,
         "interactive": false,
         "workbench.editorinputs.searchEditorInput": false,
         "imagePreview.previewEditor": false,
         "vscode.markdown.preview.editor": false,
         "jsProfileVisualizer.cpuprofile.table": false,
+        "jsProfileVisualizer.heapprofile.table": false,
         "terminalEditor": true,
-        "default": false,
         "jupyter-notebook": false,
         "mainThreadWebview-markdown.preview": false
     },
@@ -1037,13 +1256,16 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether editor file decorations should use colors.
     "workbench.editor.decorations.colors": true,
 
-    // Controls whether opened editors show as preview. Preview editors do not keep open and are reused until explicitly set to be kept open (e.g. via double click or editing) and show up with an italic font style.
+    // The default editor for files detected as binary. If undefined, the user will be presented with a picker.
+    "workbench.editor.defaultBinaryEditor": "",
+
+    // Controls whether opened editors show as preview editors. Preview editors do not stay open, are reused until explicitly set to be kept open (e.g. via double click or editing), and show file names in italics.
     "workbench.editor.enablePreview": true,
 
-    // Controls whether editors remain in preview when a code navigation is started from them. Preview editors do not keep open and are reused until explicitly set to be kept open (e.g. via double click or editing). This value is ignored when `workbench.editor.enablePreview` is disabled.
+    // Controls whether editors remain in preview when a code navigation is started from them. Preview editors do not stay open, and are reused until explicitly set to be kept open (e.g. via double click or editing). This value is ignored when `workbench.editor.enablePreview` is disabled.
     "workbench.editor.enablePreviewFromCodeNavigation": false,
 
-    // Controls whether editors opened from Quick Open show as preview. Preview editors do not keep open and are reused until explicitly set to be kept open (e.g. via double click or editing). This value is ignored when `workbench.editor.enablePreview` is disabled.
+    // Controls whether editors opened from Quick Open show as preview editors. Preview editors do not stay open, and are reused until explicitly set to be kept open (e.g. via double click or editing). This value is ignored when `workbench.editor.enablePreview` is disabled.
     "workbench.editor.enablePreviewFromQuickOpen": false,
 
     // Controls whether tabs are closed in most recently used order or from left to right.
@@ -1052,6 +1274,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether a top border is drawn on tabs for editors that have unsaved changes. This value is ignored when `workbench.editor.showTabs` is disabled.
     "workbench.editor.highlightModifiedTabs": false,
 
+    // Enables use of editor history in language detection. This causes automatic language detection to favor languages that have been recently opened and allows for automatic language detection to operate with smaller inputs.
+    "workbench.editor.historyBasedLanguageDetection": true,
+
     // Controls the format of the label for an editor.
     //  - default: Show the name of the file. When tabs are enabled and two files have the same name in one group the distinguishing sections of each file's path are added. When tabs are disabled, the path relative to the workspace folder is shown if the editor is active.
     //  - short: Show the name of the file followed by its directory name.
@@ -1059,8 +1284,15 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - long: Show the name of the file followed by its absolute path.
     "workbench.editor.labelFormat": "default",
 
-    // Controls whether the language in a text editor is automatically detected unless the language has been explicitly set by the language picker. This can also be scoped by language so you can specify which languages you do not want to be switched off. This is useful for languages like Markdown that often contain other languages that might trick language detection into thinking it's the embedded language and not Markdown.
+    // Controls whether the language in a text editor is automatically detected unless the language has been explicitly set by the language picker. This can also be scoped by language so you can specify which languages you do not want to be switched off of. This is useful for languages like Markdown that often contain other languages that might trick language detection into thinking it's the embedded language and not Markdown.
     "workbench.editor.languageDetection": true,
+
+    // When enabled, shows a Status bar Quick Fix when the editor language doesn't match detected content language.
+    //  - always: Show show language detection Quick Fixes in both notebooks and untitled editors
+    //  - notebookEditors: Only show language detection Quick Fixes in notebooks
+    //  - textEditors: Only show language detection Quick Fixes in untitled editors
+    //  - never: Never show language Quick Fixes
+    "workbench.editor.languageDetectionHints": "always",
 
     // Controls if the number of opened editors should be limited or not. When enabled, less recently used editors will close to make space for newly opening editors.
     "workbench.editor.limit.enabled": false,
@@ -1071,8 +1303,14 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the maximum number of opened editors. Use the `workbench.editor.limit.perEditorGroup` setting to control this limit per editor group or across all groups.
     "workbench.editor.limit.value": 10,
 
-    // Navigate between open files using mouse buttons four and five if provided.
+    // Enables the use of mouse buttons four and five for commands 'Go Back' and 'Go Forward'.
     "workbench.editor.mouseBackForwardToNavigate": true,
+
+    // Controls the scope of history navigation in editors for commands such as 'Go Back' and 'Go Forward'.
+    //  - default: Navigate across all opened editors and editor groups.
+    //  - editorGroup: Navigate only in editors of the active editor group.
+    //  - editor: Navigate only in the active editor.
+    "workbench.editor.navigationScope": "default",
 
     // Controls where editors open. Select `left` or `right` to open editors to the left or right of the currently active one. Select `first` or `last` to open editors independently from the currently active one.
     "workbench.editor.openPositioning": "right",
@@ -1085,6 +1323,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - compact: A pinned tab will show in a compact form with only icon or first letter of the editor name.
     //  - shrink: A pinned tab shrinks to a compact fixed size showing parts of the editor name.
     "workbench.editor.pinnedTabSizing": "normal",
+
+    // When enabled, a language detection model that takes into account editor history will be given higher precedence.
+    "workbench.editor.preferHistoryBasedLanguageDetection": false,
 
     // Restores the last editor view state (e.g. scroll position) when re-opening editors after they have been closed. Editor view state is stored per editor group and discarded when a group closes. Use the `workbench.editor.sharedViewState` setting to use the last known view state across all editor groups in case no previous view state was found for a editor group.
     "workbench.editor.restoreViewState": true,
@@ -1163,6 +1404,15 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - vs-seti
     "workbench.iconTheme": "vs-seti",
 
+    // Controls whether the layout controls in the custom title bar is enabled via `window.titleBarStyle`.
+    "workbench.layoutControl.enabled": true,
+
+    // Controls whether the layout control in the custom title bar is displayed as a single menu button or with multiple UI toggles.
+    //  - menu: Shows a single button with a dropdown of layout options.
+    //  - toggles: Shows several buttons for toggling the visibility of the panels and side bar.
+    //  - both: Shows both the dropdown and toggle buttons.
+    "workbench.layoutControl.type": "both",
+
     // Controls whether keyboard navigation in lists and trees is automatically triggered simply by typing. If set to `false`, keyboard navigation is only triggered when executing the `list.toggleKeyboardNavigation` command, for which you can assign a keyboard shortcut.
     "workbench.list.automaticKeyboardNavigation": true,
 
@@ -1192,7 +1442,22 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether lists and trees have smooth scrolling.
     "workbench.list.smoothScrolling": false,
 
-    // Controls the default location of the panel (terminal, debug console, output, problems). It can either show at the bottom, right, or left of the workbench.
+    // Controls whether local file history is enabled. When enabled, the file contents of an editor that is saved will be stored to a backup location to be able to restore or review the contents later. Changing this setting has no effect on existing local file history entries.
+    "workbench.localHistory.enabled": true,
+
+    // Configure glob patterns for excluding files from the local file history. Changing this setting has no effect on existing local file history entries.
+    "workbench.localHistory.exclude": {},
+
+    // Controls the maximum number of local file history entries per file. When the number of local file history entries exceeds this number for a file, the oldest entries will be discarded.
+    "workbench.localHistory.maxFileEntries": 50,
+
+    // Controls the maximum size of a file (in KB) to be considered for local file history. Files that are larger will not be added to the local file history. Changing this setting has no effect on existing local file history entries.
+    "workbench.localHistory.maxFileSize": 256,
+
+    // Configure an interval in seconds during which the last entry in local file history is replaced with the entry that is being added. This helps reduce the overall number of entries that are added, for example when auto save is enabled. This setting is only applied to entries that have the same source of origin. Changing this setting has no effect on existing local file history entries.
+    "workbench.localHistory.mergeWindow": 10,
+
+    // Controls the default location of the panel (terminal, debug console, output, problems) in a new workspace. It can either show at the bottom, right, or left of the editor area.
     "workbench.panel.defaultLocation": "bottom",
 
     // Controls whether the panel opens maximized. It can either always open maximized, never open maximized, or open to the last state it was in before being closed.
@@ -1204,8 +1469,11 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Specifies the preferred color theme for dark OS appearance when `window.autoDetectColorScheme` is enabled.
     "workbench.preferredDarkColorTheme": "Default Dark+",
 
-    // Specifies the preferred color theme used in high contrast mode when `window.autoDetectHighContrast` is enabled.
+    // Specifies the preferred color theme used in high contrast dark mode when `window.autoDetectHighContrast` is enabled.
     "workbench.preferredHighContrastColorTheme": "Default High Contrast",
+
+    // Specifies the preferred color theme used in high contrast light mode when `window.autoDetectHighContrast` is enabled.
+    "workbench.preferredHighContrastLightColorTheme": "Default High Contrast Light",
 
     // Specifies the preferred color theme for light OS appearance when `window.autoDetectColorScheme` is enabled.
     "workbench.preferredLightColorTheme": "Default Light+",
@@ -1219,6 +1487,12 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls whether the last typed input to Quick Open should be restored when opening it the next time.
     "workbench.quickOpen.preserveInput": false,
+
+    // Controls whether the workbench should render with fewer animations.
+    //  - on: Always render with reduced motion.
+    //  - off: Do not render with reduced motion
+    //  - auto: Render with reduced motion based on OS configuration.
+    "workbench.reduceMotion": "auto",
 
     // Controls the hover feedback delay in milliseconds of the dragging area in between views/editors.
     "workbench.sash.hoverDelay": 300,
@@ -1248,7 +1522,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether to use the split JSON editor when editing settings as JSON.
     "workbench.settings.useSplitJSON": false,
 
-    // Controls the location of the sidebar and activity bar. They can either show on the left or right of the workbench.
+    // Controls the location of the primary side bar and activity bar. They can either show on the left or right of the workbench. The secondary side bar will show on the opposite side of the workbench.
     "workbench.sideBar.location": "left",
 
     // Controls which editor is shown at startup, if none are restored from the previous session.
@@ -1280,10 +1554,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the visibility of view header actions. View header actions may either be always visible, or only visible when that view is focused or hovered over.
     "workbench.view.alwaysShowHeaderActions": false,
 
-    // When enabled, reduce motion in welcome page.
-    "workbench.welcomePage.preferReducedMotion": false,
-
-    // When enabled, an extension's walkthrough will open upon install the extension.
+    // When enabled, an extension's walkthrough will open upon install of the extension.
     "workbench.welcomePage.walkthroughs.openOnInstall": true,
 
 // Window
@@ -1291,7 +1562,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // If set, automatically switch to the preferred color theme based on the OS appearance. If the OS appearance is dark, the theme specified at `workbench.preferredDarkColorTheme` is used, for light `workbench.preferredLightColorTheme`.
     "window.autoDetectColorScheme": false,
 
-    // If enabled, will automatically change to high contrast theme if the OS is using a high contrast theme. The high contrast theme to use is specified by `workbench.preferredHighContrastColorTheme`.
+    // If enabled, will automatically change to high contrast theme if the OS is using a high contrast theme. The high contrast theme to use is specified by `workbench.preferredHighContrastColorTheme` and `workbench.preferredHighContrastLightColorTheme`.
     "window.autoDetectHighContrast": true,
 
     // If enabled, clicking on an inactive window will both activate the window and trigger the element under the mouse if it is clickable. If disabled, clicking anywhere on an inactive window will activate it only and a second click is required on the element.
@@ -1299,6 +1570,12 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls whether closing the last editor should also close the window. This setting only applies for windows that do not show folders.
     "window.closeWhenEmpty": false,
+
+    // Controls whether to show a confirmation dialog before closing the window or quitting the application.
+    //  - always: Always ask for confirmation.
+    //  - keyboardOnly: Only ask for confirmation if a keybinding was used.
+    //  - never: Never explicitly ask for confirmation.
+    "window.confirmBeforeClose": "never",
 
     // Controls whether the menu bar will be focused by pressing the Alt-key. This setting has no effect on toggling the menu bar with the Alt-key.
     "window.customMenuBarAltFocus": true,
@@ -1318,12 +1595,12 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether the main menus can be opened via Alt-key shortcuts. Disabling mnemonics allows to bind these Alt-key shortcuts to editor commands instead.
     "window.enableMenuBarMnemonics": true,
 
-    // Control the visibility of the menu bar. A setting of 'toggle' means that the menu bar is hidden and a single press of the Alt key will show it. A setting of 'compact' will move the menu into the sidebar.
+    // Control the visibility of the menu bar. A setting of 'toggle' means that the menu bar is hidden and a single press of the Alt key will show it. A setting of 'compact' will move the menu into the side bar.
     //  - classic: Menu is displayed at the top of the window and only hidden in full screen mode.
     //  - visible: Menu is always visible at the top of the window even in full screen mode.
     //  - toggle: Menu is hidden but can be displayed at the top of the window via the Alt key.
     //  - hidden: Menu is always hidden.
-    //  - compact: Menu is displayed as a compact button in the sidebar. This value is ignored when `window.titleBarStyle` is `native`.
+    //  - compact: Menu is displayed as a compact button in the side bar. This value is ignored when `window.titleBarStyle` is `native`.
     "window.menuBarVisibility": "classic",
 
     // Controls the dimensions of opening a new window when at least one window is already opened. Note that this setting does not have an impact on the first window that is opened. The first window will always restore the size and location as you left it before closing.
@@ -1334,7 +1611,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - fullscreen: Open new windows in full screen mode.
     "window.newWindowDimensions": "default",
 
-    // Controls whether files should open in a new window.
+    // Controls whether files should open in a new window when using a command line or file dialog.
     // Note that there can still be cases where this setting is ignored (e.g. when using the `--new-window` or `--reuse-window` command line option).
     //  - on: Files will open in a new window.
     //  - off: Files will open in the window with the files' folder open or the last active window.
@@ -1365,21 +1642,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - none: Never reopen a window. Unless a folder or workspace is opened (e.g. from the command line), an empty window will appear.
     "window.restoreWindows": "all",
 
-    // Controls the window title based on the active editor. Variables are substituted based on the context:
-    // - `${activeEditorShort}`: the file name (e.g. myFile.txt).
-    // - `${activeEditorMedium}`: the path of the file relative to the workspace folder (e.g. myFolder/myFileFolder/myFile.txt).
-    // - `${activeEditorLong}`: the full path of the file (e.g. /Users/Development/myFolder/myFileFolder/myFile.txt).
-    // - `${activeFolderShort}`: the name of the folder the file is contained in (e.g. myFileFolder).
-    // - `${activeFolderMedium}`: the path of the folder the file is contained in, relative to the workspace folder (e.g. myFolder/myFileFolder).
-    // - `${activeFolderLong}`: the full path of the folder the file is contained in (e.g. /Users/Development/myFolder/myFileFolder).
-    // - `${folderName}`: name of the workspace folder the file is contained in (e.g. myFolder).
-    // - `${folderPath}`: file path of the workspace folder the file is contained in (e.g. /Users/Development/myFolder).
-    // - `${rootName}`: name of the opened workspace or folder (e.g. myFolder or myWorkspace).
-    // - `${rootPath}`: file path of the opened workspace or folder (e.g. /Users/Development/myWorkspace).
-    // - `${appName}`: e.g. VS Code.
-    // - `${remoteName}`: e.g. SSH
-    // - `${dirty}`: an indicator for when the active editor has unsaved changes.
-    // - `${separator}`: a conditional separator (" - ") that only shows when surrounded by variables with values or static text.
+    // Controls the window title based on the active editor.
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}",
 
     // Adjust the appearance of the window title bar. On Linux and Windows, this setting also affects the application and context menu appearances. Changes require a full restart to apply.
@@ -1409,7 +1672,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the delay in milliseconds after which an editor with unsaved changes is saved automatically. Only applies when `files.autoSave` is set to `afterDelay`.
     "files.autoSaveDelay": 1000,
 
-    // The default language mode that is assigned to new files. If configured to `${activeEditorLanguage}`, will use the language mode of the currently active text editor if any.
+    // The default language identifier that is assigned to new files. If configured to `${activeEditorLanguage}`, will use the language identifier of the currently active text editor if any.
     "files.defaultLanguage": "",
 
     // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
@@ -1424,7 +1687,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - auto: Uses operating system specific end of line character.
     "files.eol": "auto",
 
-    // Configure glob patterns for excluding files and folders. For example, the file Explorer decides which files and folders to show or hide based on this setting. Refer to the `search.exclude` setting to define search specific excludes.
+    // Configure glob patterns for excluding files and folders. For example, the File Explorer decides which files and folders to show or hide based on this setting. Refer to the `search.exclude` setting to define search-specific excludes.
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -1448,6 +1711,9 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Timeout in milliseconds after which file participants for create, rename, and delete are cancelled. Use `0` to disable participants.
     "files.participants.timeout": 60000,
+
+    // Controls if files that were part of a refactoring are saved automatically
+    "files.refactoring.autoSave": true,
 
     // Restore the undo stack when a file is reopened.
     "files.restoreUndoStack": true,
@@ -1484,6 +1750,14 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls how long (in milliseconds) the keyboard overlay is shown in screencast mode.
     "screencastMode.keyboardOverlayTimeout": 800,
+
+    // Controls what is displayed in the keyboard overlay when showing shortcuts.
+    //  - keys: Keys.
+    //  - command: Command title.
+    //  - commandWithGroup: Command title prefixed by its group.
+    //  - commandAndKeys: Command title and keys.
+    //  - commandWithGroupAndKeys: Command title and keys, with the command prefixed by its group.
+    "screencastMode.keyboardShortcutsFormat": "commandAndKeys",
 
     // Controls the color in hex (#RGB, #RGBA, #RRGGBB or #RRGGBBAA) of the mouse indicator in screencast mode.
     "screencastMode.mouseIndicatorColor": "#FF0000",
@@ -1540,6 +1814,12 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether the explorer should ask for confirmation to move files and folders via drag and drop.
     "explorer.confirmDragAndDrop": true,
 
+    // Controls whether the Explorer should ask for confirmation when undoing.
+    //  - verbose: Explorer will prompt before all undo operations.
+    //  - default: Explorer will prompt before destructive undo operations.
+    //  - light: Explorer will not prompt before undo operations when focused.
+    "explorer.confirmUndo": "default",
+
     // The path separation character used when copying relative file paths.
     //  - /: Use slash as path separation character.
     //  - \: Use backslash as path separation character.
@@ -1555,6 +1835,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether the explorer should allow to move files and folders via drag and drop. This setting only effects drag and drop from inside the explorer.
     "explorer.enableDragAndDrop": true,
 
+    // Controls whether the Explorer should support undoing file and folder operations.
+    "explorer.enableUndo": true,
+
     // Controls whether the Explorer should expand multi-root workspaces containing only one folder during initilization
     "explorer.expandSingleFolderWorkspaces": true,
 
@@ -1563,12 +1846,16 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - smart: Adds a number at the end of the duplicated name. If some number is already part of the name, tries to increase that number
     "explorer.incrementalNaming": "simple",
 
+    // The minimum number of editor slots shown in the Open Editors pane. If set to 0 the Open Editors pane will dynamically resize based on the number of editors.
+    "explorer.openEditors.minVisible": 0,
+
     // Controls the sorting order of editors in the Open Editors pane.
     //  - editorOrder: Editors are ordered in the same order editor tabs are shown.
-    //  - alphabetical: Editors are ordered in alphabetical order inside each editor group.
+    //  - alphabetical: Editors are ordered alphabetically by tab name inside each editor group.
+    //  - fullPath: Editors are ordered alphabetically by full path inside each editor group.
     "explorer.openEditors.sortOrder": "editorOrder",
 
-    // Number of editors shown in the Open Editors pane. Setting this to 0 hides the Open Editors pane.
+    // The maximum number of editors shown in the Open Editors pane. Setting this to 0 hides the Open Editors pane.
     "explorer.openEditors.visible": 9,
 
     // Controls the property-based sorting of files and folders in the explorer.
@@ -1583,7 +1870,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - default: Uppercase and lowercase names are mixed together.
     //  - upper: Uppercase names are grouped together before lowercase names.
     //  - lower: Lowercase names are grouped together before uppercase names.
-    //  - unicode: Names are sorted in unicode order.
+    //  - unicode: Names are sorted in Unicode order.
     "explorer.sortOrderLexicographicOptions": "default",
 
 // Search
@@ -1612,8 +1899,8 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether the search view should read or modify the shared find clipboard on macOS.
     "search.globalFindClipboard": false,
 
-    // Controls where new `Search: Find in Files` and `Find in Folder` operations occur: either in the sidebar's search view, or in a search editor
-    //  - view: Search in the search view, either in the panel or sidebar.
+    // Controls where new `Search: Find in Files` and `Find in Folder` operations occur: either in the search view, or in a search editor.
+    //  - view: Search in the search view, either in the panel or side bars.
     //  - reuseEditor: Search in an existing search editor if present, otherwise in a new search editor.
     //  - newEditor: Search in a new search editor.
     "search.mode": "view",
@@ -1674,6 +1961,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether to use `.gitignore` and `.ignore` files when searching for files.
     "search.useIgnoreFiles": true,
 
+    // Controls whether to use `.gitignore` and `.ignore` files in parent directories when searching for files. Requires `search.useIgnoreFiles` to be enabled.
+    "search.useParentIgnoreFiles": false,
+
     // Controls whether to open Replace Preview when selecting or replacing a match.
     "search.useReplacePreview": true,
 
@@ -1726,11 +2016,11 @@ Below are the Visual Studio Code default settings and their values. You can also
 
 // Debug
 
-    // Controls when the comments panel should open.
-    "comments.openPanel": "openOnSessionStartWithComments",
-
     // Allow setting breakpoints in any file.
     "debug.allowBreakpointsEverywhere": false,
+
+    // Automatically show values for variables that are lazily resolved by the debugger, such as getters.
+    "debug.autoExpandLazyVariables": false,
 
     // Controls whether to confirm when the window closes if there are active debug sessions.
     //  - never: Never confirm.
@@ -1761,12 +2051,18 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls if the lines should wrap in the debug console.
     "debug.console.wordWrap": true,
 
+    // Show Source Code in Disassembly View.
+    "debug.disassemblyView.showSourceCode": true,
+
+    // Controls whether the editor should be focused when the debugger breaks.
+    "debug.focusEditorOnBreak": true,
+
     // Controls whether the workbench window should be focused when the debugger breaks.
     "debug.focusWindowOnBreak": true,
 
     // Show variable values inline in editor while debugging.
-    //  - true: Always show variable values inline in editor while debugging.
-    //  - false: Never show variable values inline in editor while debugging.
+    //  - on: Always show variable values inline in editor while debugging.
+    //  - off: Never show variable values inline in editor while debugging.
     //  - auto: Show variable values inline in editor while debugging when the language supports inline value locations.
     "debug.inlineValues": "auto",
 
@@ -1824,6 +2120,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Enable/disable autoclosing of HTML tags.
     "html.autoClosingTags": true,
 
+    // Enable/disable auto creation of quotes for HTML attribute assignment. The type of quotes can be configured by `html.completion.attributeDefaultValue`.
+    "html.autoCreateQuotes": true,
+
     // Controls the default value for attributes when completion is accepted.
     //  - doublequotes: Attribute value is set to "".
     //  - singlequotes: Attribute value is set to ''.
@@ -1878,7 +2177,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - preserve-aligned: Preserve wrapping of attributes but align.
     "html.format.wrapAttributes": "auto",
 
-    // Alignment size when using 'force aligned' and 'aligned multiple' in `html.format.wrapAttributes` or `null` to use the default indent size.
+    // Indent wrapped attributes to after N characters. Use `null` to use the default indent size. Ignored if `html.format.wrapAttributes` is set to 'aligned'.
     "html.format.wrapAttributesIndentSize": null,
 
     // Maximum amount of characters per line (0 = disable).
@@ -1918,6 +2217,9 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Traces the communication between VS Code and the JSON language server.
     "json.trace.server": "off",
+
+    // Enable/disable JSON validation.
+    "json.validate.enable": true,
 
 // Markdown
 
@@ -1963,6 +2265,9 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // A list of URLs or local paths to CSS style sheets to use from the Markdown preview. Relative paths are interpreted relative to the folder open in the Explorer. If there is no open folder, they are interpreted relative to the location of the Markdown file. All '\' need to be written as '\\'.
     "markdown.styles": [],
+
+    // Enable/disable path suggestions for markdown links
+    "markdown.suggest.paths.enabled": true,
 
     // Enable debug logging for the Markdown extension.
     "markdown.trace": "off",
@@ -2076,12 +2381,15 @@ Below are the Visual Studio Code default settings and their values. You can also
     "javascript.preferences.importModuleSpecifierEnding": "auto",
 
     // Preferred style for JSX attribute completions.
-    //  - auto: Insert `={}` or `=""` after attribute names based on the prop type.
+    //  - auto: Insert `={}` or `=""` after attribute names based on the prop type. See `javascript.preferences.quoteStyle` to control the type of quotes used for string attributes.
     //  - braces: Insert `={}` after attribute names.
     //  - none: Only insert attribute names.
     "javascript.preferences.jsxAttributeCompletionStyle": "auto",
 
-    // Preferred quote style to use for quick fixes: `single` quotes, `double` quotes, or `auto` infer quote type from existing imports.
+    // Preferred quote style to use for Quick Fixes.
+    //  - auto: Infer quote type from existing code
+    //  - single: Always use single quotes: `'`
+    //  - double: Always use double quotes: `"`
     "javascript.preferences.quoteStyle": "auto",
 
     // The setting 'typescript.preferences.renameShorthandProperties' has been deprecated in favor of 'typescript.preferences.useAliasesForRenames'
@@ -2100,6 +2408,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Enable/disable auto import suggestions.
     "javascript.suggest.autoImports": true,
 
+    // Enable/disable snippet completions for class members.
+    "javascript.suggest.classMemberSnippets.enabled": true,
+
     // Complete functions with their parameter signature.
     "javascript.suggest.completeFunctionCalls": false,
 
@@ -2115,7 +2426,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Enable/disable auto-import-style completions on partially-typed import statements. Requires using TypeScript 4.3+ in the workspace.
     "javascript.suggest.includeCompletionsForImportStatements": true,
 
-    // Enable/disable generating `@return` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.
+    // Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.
     "javascript.suggest.jsdoc.generateReturns": true,
 
     // Enable/disable including unique names from the file in JavaScript suggestions. Note that name suggestions are always disabled in JavaScript code that is semantically checked using `@ts-check` or `checkJs`.
@@ -2139,11 +2450,17 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Enable/disable semantic checking of JavaScript files. Existing `jsconfig.json` or `tsconfig.json` files override this setting.
     "js/ts.implicitProjectConfig.checkJs": false,
 
+    // Sets the module system for the program.
+    "js/ts.implicitProjectConfig.module": "ESNext",
+
     // Enable/disable strict function types in JavaScript and TypeScript files that are not part of a project. Existing `jsconfig.json` or `tsconfig.json` files override this setting.
     "js/ts.implicitProjectConfig.strictFunctionTypes": true,
 
     // Enable/disable strict null checks in JavaScript and TypeScript files that are not part of a project. Existing `jsconfig.json` or `tsconfig.json` files override this setting.
     "js/ts.implicitProjectConfig.strictNullChecks": false,
+
+    // Set target JavaScript language version for emitted JavaScript and include library declarations.
+    "js/ts.implicitProjectConfig.target": "ES2020",
 
     // Enable/disable automatic closing of JSX tags.
     "typescript.autoClosingTags": true,
@@ -2239,7 +2556,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     "typescript.inlayHints.variableTypes.enabled": false,
 
     // Sets the locale used to report JavaScript and TypeScript errors. Defaults to use VS Code's locale.
-    "typescript.locale": "",
+    "typescript.locale": "auto",
 
     // Specifies the path to the npm executable used for Automatic Type Acquisition.
     "typescript.npm": "",
@@ -2270,7 +2587,10 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - none: Only insert attribute names.
     "typescript.preferences.jsxAttributeCompletionStyle": "auto",
 
-    // Preferred quote style to use for quick fixes: `single` quotes, `double` quotes, or `auto` infer quote type from existing imports.
+    // Preferred quote style to use for Quick Fixes.
+    //  - auto: Infer quote type from existing code
+    //  - single: Always use single quotes: `'`
+    //  - double: Always use double quotes: `"`
     "typescript.preferences.quoteStyle": "auto",
 
     // Enable/disable introducing aliases for object shorthand properties during renames. Requires using TypeScript 3.4 or newer in the workspace.
@@ -2287,6 +2607,9 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Enable/disable auto import suggestions.
     "typescript.suggest.autoImports": true,
+
+    // Enable/disable snippet completions for class members.
+    "typescript.suggest.classMemberSnippets.enabled": true,
 
     // Complete functions with their parameter signature.
     "typescript.suggest.completeFunctionCalls": false,
@@ -2306,8 +2629,11 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Enable/disable snippet completions from TS Server. Requires using TypeScript 4.3+ in the workspace.
     "typescript.suggest.includeCompletionsWithSnippetText": true,
 
-    // Enable/disable generating `@return` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.
+    // Enable/disable generating `@returns` annotations for JSDoc templates. Requires using TypeScript 4.2+ in the workspace.
     "typescript.suggest.jsdoc.generateReturns": true,
+
+    // Enable/disable snippet completions for methods in object literals.
+    "typescript.suggest.objectLiteralMethodSnippets.enabled": true,
 
     // Enable/disable suggestions for paths in import statements and require calls.
     "typescript.suggest.paths": true,
@@ -2396,6 +2722,15 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether test decorations are shown in the editor gutter.
     "testing.gutterEnabled": true,
 
+    // Controls when the testing view should open.
+    //  - neverOpen: Never automatically open the testing view
+    //  - openOnTestStart: Open the testing view when tests start
+    //  - openOnTestFailure: Open the testing view on any test failure
+    "testing.openTesting": "openOnTestStart",
+
+    // Control whether save all dirty editors before running a test.
+    "testing.saveBeforeTest": true,
+
 // CSS
 
     // Insert semicolon at end of line when completing CSS properties.
@@ -2408,6 +2743,27 @@ Below are the Visual Studio Code default settings and their values. You can also
     // VS Code loads custom data on startup to enhance its CSS support for the custom CSS properties, at directives, pseudo classes and pseudo elements you specify in the JSON files.
     // The file paths are relative to workspace and only workspace folder settings are considered.
     "css.customData": [],
+
+    // Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+    "css.format.braceStyle": "collapse",
+
+    // Enable/disable default CSS formatter.
+    "css.format.enable": true,
+
+    // Maximum number of line breaks to be preserved in one chunk, when `css.format.preserveNewLines` is enabled.
+    "css.format.maxPreserveNewLines": null,
+
+    // Separate rulesets by a blank line.
+    "css.format.newlineBetweenRules": true,
+
+    // Separate selectors with a new line.
+    "css.format.newlineBetweenSelectors": true,
+
+    // Whether existing line breaks before elements should be preserved.
+    "css.format.preserveNewLines": true,
+
+    // Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+    "css.format.spaceAroundSelectorSeparator": false,
 
     // Show tag and attribute documentation in CSS hovers.
     "css.hover.documentation": true,
@@ -2489,6 +2845,27 @@ Below are the Visual Studio Code default settings and their values. You can also
     // By default, VS Code triggers property value completion after selecting a CSS property. Use this setting to disable this behavior.
     "less.completion.triggerPropertyValueCompletion": true,
 
+    // Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+    "less.format.braceStyle": "collapse",
+
+    // Enable/disable default LESS formatter.
+    "less.format.enable": true,
+
+    // Maximum number of line breaks to be preserved in one chunk, when `less.format.preserveNewLines` is enabled.
+    "less.format.maxPreserveNewLines": null,
+
+    // Separate rulesets by a blank line.
+    "less.format.newlineBetweenRules": true,
+
+    // Separate selectors with a new line.
+    "less.format.newlineBetweenSelectors": true,
+
+    // Whether existing line breaks before elements should be preserved.
+    "less.format.preserveNewLines": true,
+
+    // Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+    "less.format.spaceAroundSelectorSeparator": false,
+
     // Show tag and attribute documentation in LESS hovers.
     "less.hover.documentation": true,
 
@@ -2565,6 +2942,27 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // By default, VS Code triggers property value completion after selecting a CSS property. Use this setting to disable this behavior.
     "scss.completion.triggerPropertyValueCompletion": true,
+
+    // Put braces on the same line as rules (`collapse`) or put braces on own line (`expand`).
+    "scss.format.braceStyle": "collapse",
+
+    // Enable/disable default SCSS formatter.
+    "scss.format.enable": true,
+
+    // Maximum number of line breaks to be preserved in one chunk, when `scss.format.preserveNewLines` is enabled.
+    "scss.format.maxPreserveNewLines": null,
+
+    // Separate rulesets by a blank line.
+    "scss.format.newlineBetweenRules": true,
+
+    // Separate selectors with a new line.
+    "scss.format.newlineBetweenSelectors": true,
+
+    // Whether existing line breaks before elements should be preserved.
+    "scss.format.preserveNewLines": true,
+
+    // Ensure a space character around selector separators '>', '+', '~' (e.g. `a > b`).
+    "scss.format.spaceAroundSelectorSeparator": false,
 
     // Show tag and attribute documentation in SCSS hovers.
     "scss.hover.documentation": true,
@@ -2659,9 +3057,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     "extensions.supportUntrustedWorkspaces": {},
 
     // Override the virtual workspaces support of an extension.
-    "extensions.supportVirtualWorkspaces": {
-        "pub.name": false
-    },
+    "extensions.supportVirtualWorkspaces": {},
 
 // Output
 
@@ -2680,6 +3076,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     "settingsSync.keybindingsPerPlatform": true,
 
 // Notebooks
+
+    // Controls whether code cells in the interactive window are collapsed by default.
+    "interactiveWindow.collapseCellInputCode": "fromEditor",
 
     // When enabled notebook breadcrumbs contain code cells.
     "notebook.breadcrumbs.showCodeCells": true,
@@ -2726,7 +3125,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     "notebook.globalToolbar": true,
 
     // Control whether the actions on the notebook toolbar should render label or not.
-    "notebook.globalToolbarShowLabel": true,
+    "notebook.globalToolbarShowLabel": "always",
 
     // Control where the insert cell actions should appear.
     //  - betweenCells: A toolbar that appears on hover between cells.
@@ -2738,6 +3137,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the display of line numbers in the cell editor.
     "notebook.lineNumbers": "off",
 
+    // Controls the font size in pixels of rendered markup in notebooks. When set to `0`, 120% of `editor.fontSize` is used.
+    "notebook.markup.fontSize": 0,
+
     // When enabled cursor can navigate to the next/previous cell when the current cursor in the cell editor is at the first/last line.
     "notebook.navigation.allowNavigateToSurroundingCells": true,
 
@@ -2746,6 +3148,17 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Control how many lines of text in a text output is rendered.
     "notebook.output.textLineLimit": 30,
+
+    // The font family for the output text for notebook cells. When set to empty, the `editor.fontFamily` is used.
+    "notebook.outputFontFamily": "",
+
+    // Font size for the output text for notebook cells. When set to 0 `editor.fontSize` is used.
+    "notebook.outputFontSize": 0,
+
+    // Line height of the output text for notebook cells.
+    //  - Values between 0 and 8 will be used as a multiplier with the font size.
+    //  - Values greater than or equal to 8 will be used as effective values.
+    "notebook.outputLineHeight": 22,
 
     // Whether the cell status bar should be shown.
     //  - hidden: The cell Status bar is always hidden.
@@ -2763,7 +3176,7 @@ Below are the Visual Studio Code default settings and their values. You can also
 
 // Terminal
 
-    // Customizes what kind of terminal to launch.
+    // When opening a file from the Explorer in a terminal, determines what kind of terminal will be launched
     //  - integrated: Use VS Code's integrated terminal.
     //  - external: Use the configured external terminal.
     "terminal.explorerKind": "integrated",
@@ -2784,20 +3197,23 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Whether or not to allow chord keybindings in the terminal. Note that when this is true and the keystroke results in a chord it will bypass `terminal.integrated.commandsToSkipShell`, setting this to false is particularly useful when you want ctrl+k to go to your shell (not VS Code).
     "terminal.integrated.allowChords": true,
 
-    // Whether to allow menubar mnemonics (eg. alt+f) to trigger the open the menubar. Note that this will cause all alt keystrokes to skip the shell when true. This does nothing on macOS.
+    // Whether to allow menubar mnemonics (eg. alt+f) to trigger the open of the menubar. Note that this will cause all alt keystrokes to skip the shell when true. This does nothing on macOS.
     "terminal.integrated.allowMnemonics": false,
 
     // If enabled, alt/option + click will reposition the prompt cursor to underneath the mouse when `editor.multiCursorModifier` is set to `'alt'` (the default value). This may not work reliably depending on your shell.
     "terminal.integrated.altClickMovesCursor": true,
 
-    // A path that when set will override `terminal.integrated.shell.linux` and ignore `shellArgs` values for automation-related terminal usage like tasks and debug.
-    "terminal.integrated.automationShell.linux": null,
+    // The terminal profile to use on Linux for automation-related terminal usage like tasks and debug. This setting will currently be ignored if #terminal.integrated.automationShell.linux# is set.
+    "terminal.integrated.automationProfile.linux": null,
 
-    // A path that when set will override `terminal.integrated.shell.osx` and ignore `shellArgs` values for automation-related terminal usage like tasks and debug.
-    "terminal.integrated.automationShell.osx": null,
+    // The terminal profile to use on macOS for automation-related terminal usage like tasks and debug. This setting will currently be ignored if #terminal.integrated.automationShell.osx# is set.
+    "terminal.integrated.automationProfile.osx": null,
 
-    // A path that when set will override `terminal.integrated.shell.windows` and ignore `shellArgs` values for automation-related terminal usage like tasks and debug.
-    "terminal.integrated.automationShell.windows": null,
+    // The terminal profile to use for automation-related terminal usage like tasks and debug. This setting will currently be ignored if #terminal.integrated.automationShell.windows# is set.
+    "terminal.integrated.automationProfile.windows": null,
+
+    // A set of messages that when encountered in the terminal will be automatically responded to. Provided the message is specific enough, this can help automate away common responses.
+    "terminal.integrated.autoReplies": {},
 
     // The number of milliseconds to show the bell within a terminal tab when triggered.
     "terminal.integrated.bellDuration": 1000,
@@ -2865,6 +3281,11 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Whether to enable file links in the terminal. Links can be slow when working on a network drive in particular because each file link is verified against the file system. Changing this will take effect only in new terminals.
     "terminal.integrated.enableFileLinks": true,
 
+    // Show a warning dialog when pasting multiple lines into the terminal. The dialog does not show when:
+    // - Bracketed paste mode is enabled (the shell supports multi-line paste natively)
+    // - The paste is handled by the shell's readline (in the case of pwsh)
+    "terminal.integrated.enableMultiLinePasteWarning": true,
+
     // Persist terminal sessions for the workspace across window reloads.
     "terminal.integrated.enablePersistentSessions": true,
 
@@ -2908,7 +3329,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - canvas: Use the fallback canvas renderer within the terminal. This uses a 2d context instead of webgl and may be better on some systems.
     "terminal.integrated.gpuAcceleration": "auto",
 
-    // Configurable to provide a custom setting to ignore processes
+    // A set of process names to ignore when using the `terminal.integrated.confirmOnKill` setting.
     "terminal.integrated.ignoreProcessNames": [],
 
     // Whether new shells should inherit their environment from VS Code, which may source a login shell to ensure $PATH and other development variables are initialized. This has no effect on Windows.
@@ -2920,6 +3341,26 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the line height of the terminal, this number is multiplied by the terminal font size to get the actual line-height in pixels.
     "terminal.integrated.lineHeight": 1,
 
+    // When local echo should be enabled. This will override `terminal.integrated.localEchoLatencyThreshold`
+    //  - on: Always enabled
+    //  - off: Always disabled
+    //  - auto: Enabled only for remote workspaces
+    "terminal.integrated.localEchoEnabled": "auto",
+
+    // Local echo will be disabled when any of these program names are found in the terminal title.
+    "terminal.integrated.localEchoExcludePrograms": [
+        "vim",
+        "vi",
+        "nano",
+        "tmux"
+    ],
+
+    // Length of network delay, in milliseconds, where local edits will be echoed on the terminal without waiting for server acknowledgement. If '0', local echo will always be on, and if '-1' it will be disabled.
+    "terminal.integrated.localEchoLatencyThreshold": 30,
+
+    // Terminal style of locally echoed text; either a font style or an RGB color.
+    "terminal.integrated.localEchoStyle": "dim",
+
     // Controls whether to force selection when using Option+click on macOS. This will force a regular (line) selection and disallow the use of column selection mode. This enables copying and pasting using the regular terminal selection, for example, when mouse mode is enabled in tmux.
     "terminal.integrated.macOptionClickForcesSelection": false,
 
@@ -2928,16 +3369,16 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // When set the foreground color of each cell will change to try meet the contrast ratio specified. Example values:
     //
-    // - 1: The default, do nothing.
+    // - 1: Do nothing and use the standard theme colors.
     // - 4.5: WCAG AA compliance (minimum).
     // - 7: WCAG AAA compliance (enhanced).
     // - 21: White on black or black on white.
-    "terminal.integrated.minimumContrastRatio": 1,
+    "terminal.integrated.minimumContrastRatio": 4.5,
 
     // A multiplier to be used on the `deltaY` of mouse wheel scroll events.
     "terminal.integrated.mouseWheelScrollSensitivity": 1,
 
-    // When the terminal process must be shutdown (for example, on window or application close), this determines when the previous terminal session contents should be restored and processes be recreated when the workspace is next opened. Restoring of the process current working directory depends on whether it is supported by the shell.
+    // When the terminal process must be shutdown (for example, on window or application close), this determines when the previous terminal session contents should be restored and processes be recreated when the workspace is next opened.
     //  - onExit: Revive the processes after the last window is closed on Windows/Linux or when the `workbench.action.quit` command is triggered (command palette, keybinding, menu).
     //  - onExitAndWindowClose: Revive the processes after the last window is closed on Windows/Linux or when the `workbench.action.quit` command is triggered (command palette, keybinding, menu), or when the window is closed.
     //  - never: Never restore the terminal buffers or recreate the process.
@@ -2946,13 +3387,13 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls the maximum amount of lines that will be restored when reconnecting to a persistent terminal session. Increasing this will restore more lines of scrollback at the cost of more memory and increase the time it takes to connect to terminals on start up. This setting requires a restart to take effect and should be set to a value less than or equal to `terminal.integrated.scrollback`.
     "terminal.integrated.persistentSessionScrollback": 100,
 
-    // The Linux profiles to present when creating a new terminal via the terminal dropdown. When set, these will override the default detected profiles. They are comprised of a `path` and optional `args`.
+    // The Linux profiles to present when creating a new terminal via the terminal dropdown.
     "terminal.integrated.profiles.linux": { },
 
-    // The macOS profiles to present when creating a new terminal via the terminal dropdown. When set, these will override the default detected profiles. They are comprised of a `path` and optional `args`.
+    // The macOS profiles to present when creating a new terminal via the terminal dropdown.
     "terminal.integrated.profiles.osx": { },
 
-    // The Windows profiles to present when creating a new terminal via the terminal dropdown. Set to null to exclude them, use the `source` property to use the default detected configuration. Or, set the `path` and optional `args`.
+    // The Windows profiles to present when creating a new terminal via the terminal dropdown.
     "terminal.integrated.profiles.windows": { },
 
     // Controls how terminal reacts to right click.
@@ -2960,6 +3401,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - copyPaste: Copy when there is a selection, otherwise paste.
     //  - paste: Paste on right click.
     //  - selectWord: Select the word under the cursor and show the context menu.
+    //  - nothing: Do nothing and pass event to terminal.
     "terminal.integrated.rightClickBehavior": "copyPaste",
 
     // Controls the maximum amount of lines the terminal keeps in its buffer.
@@ -2982,12 +3424,12 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls the terminal description, which appears to the right of the title. Variables are substituted based on the context:
     // - `${cwd}`: the terminal's current working directory
-    // - `${cwdFolder}`: the terminal's current working directory, displayed for multi-root workspaces or in a single root workspace when the value differs from the initial working directory. This will not be displayed for Windows.
+    // - `${cwdFolder}`: the terminal's current working directory, displayed for multi-root workspaces or in a single root workspace when the value differs from the initial working directory.
     // - `${workspaceFolder}`: the workspace in which the terminal was launched
     // - `${local}`: indicates a local terminal in a remote workspace
     // - `${process}`: the name of the terminal process
     // - `${separator}`: a conditional separator (" - ") that only shows when surrounded by variables with values or static text.
-    // - `${sequence}`: the name provided to xterm.js by the process
+    // - `${sequence}`: the name provided to the terminal by the process
     // - `${task}`: indicates this terminal is associated with a task
     "terminal.integrated.tabs.description": "${task}${separator}${local}${separator}${cwdFolder}",
 
@@ -3013,7 +3455,7 @@ Below are the Visual Studio Code default settings and their values. You can also
     //  - right: Show the terminal tabs view to the right of the terminal
     "terminal.integrated.tabs.location": "right",
 
-    // Separator used by `terminal.integrated.title` and `terminal.integrated.description`.
+    // Separator used by `terminal.integrated.tabs.title` and `terminal.integrated.tabs.title`.
     "terminal.integrated.tabs.separator": " - ",
 
     // Controls whether terminal split and kill buttons are displays next to the new terminal button.
@@ -3032,18 +3474,18 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // Controls the terminal title. Variables are substituted based on the context:
     // - `${cwd}`: the terminal's current working directory
-    // - `${cwdFolder}`: the terminal's current working directory, displayed for multi-root workspaces or in a single root workspace when the value differs from the initial working directory. This will not be displayed for Windows.
+    // - `${cwdFolder}`: the terminal's current working directory, displayed for multi-root workspaces or in a single root workspace when the value differs from the initial working directory.
     // - `${workspaceFolder}`: the workspace in which the terminal was launched
     // - `${local}`: indicates a local terminal in a remote workspace
     // - `${process}`: the name of the terminal process
     // - `${separator}`: a conditional separator (" - ") that only shows when surrounded by variables with values or static text.
-    // - `${sequence}`: the name provided to xterm.js by the process
+    // - `${sequence}`: the name provided to the terminal by the process
     // - `${task}`: indicates this terminal is associated with a task
     "terminal.integrated.tabs.title": "${process}",
 
-    // Controls what version of unicode to use when evaluating the width of characters in the terminal. If you experience emoji or other wide characters not taking up the right amount of space or backspace either deleting too much or too little then you may want to try tweaking this setting.
-    //  - 6: Version 6 of unicode, this is an older version which should work better on older systems.
-    //  - 11: Version 11 of unicode, this version provides better support on modern systems that use modern versions of unicode.
+    // Controls what version of Unicode to use when evaluating the width of characters in the terminal. If you experience emoji or other wide characters not taking up the right amount of space or backspace either deleting too much or too little then you may want to try tweaking this setting.
+    //  - 6: Version 6 of Unicode, this is an older version which should work better on older systems.
+    //  - 11: Version 11 of Unicode, this version provides better support on modern systems that use modern versions of Unicode.
     "terminal.integrated.unicodeVersion": "11",
 
     // Controls whether or not WSL distros are shown in the terminal dropdown
@@ -3094,6 +3536,11 @@ Below are the Visual Studio Code default settings and their values. You can also
 
     // When enabled shows the current problem in the status bar.
     "problems.showCurrentInStatus": false,
+
+    // Controls the order in which problems are navigated.
+    //  - severity: Navigate problems ordered by severity
+    //  - position: Navigate problems ordered by position
+    "problems.sortOrder": "severity",
 
 // Breadcrumb Navigation
 
@@ -3318,26 +3765,26 @@ Below are the Visual Studio Code default settings and their values. You can also
 
 // Default Configuration Overrides
 
-    // Configure settings to be overridden for [css] language.
+    // Configure settings to be overridden for the css language.
     "[css]":  {
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [dockercompose] language.
+    // Configure settings to be overridden for the dockercompose language.
     "[dockercompose]":  {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
         "editor.autoIndent": "advanced"
     },
 
-    // Configure settings to be overridden for [dockerfile] language.
+    // Configure settings to be overridden for the dockerfile language.
     "[dockerfile]":  {
         "editor.quickSuggestions": {
                 "strings": true
         }
     },
 
-    // Configure settings to be overridden for [git-commit] language.
+    // Configure settings to be overridden for the git-commit language.
     "[git-commit]":  {
         "editor.rulers": [
                 72
@@ -3345,27 +3792,32 @@ Below are the Visual Studio Code default settings and their values. You can also
         "workbench.editor.restoreViewState": false
     },
 
-    // Configure settings to be overridden for [git-rebase] language.
+    // Configure settings to be overridden for the git-rebase language.
     "[git-rebase]":  {
         "workbench.editor.restoreViewState": false
     },
 
-    // Configure settings to be overridden for [go] language.
+    // Configure settings to be overridden for the go language.
     "[go]":  {
         "editor.insertSpaces": false
     },
 
-    // Configure settings to be overridden for [handlebars] language.
+    // Configure settings to be overridden for the handlebars language.
     "[handlebars]":  {
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [html] language.
+    // Configure settings to be overridden for the html language.
     "[html]":  {
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [json] language.
+    // Configure settings to be overridden for the javascript language.
+    "[javascript]":  {
+        "editor.maxTokenizationLineLength": 2500
+    },
+
+    // Configure settings to be overridden for the json language.
     "[json]":  {
         "editor.quickSuggestions": {
                 "strings": true
@@ -3373,7 +3825,7 @@ Below are the Visual Studio Code default settings and their values. You can also
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [jsonc] language.
+    // Configure settings to be overridden for the jsonc language.
     "[jsonc]":  {
         "editor.quickSuggestions": {
                 "strings": true
@@ -3381,43 +3833,98 @@ Below are the Visual Studio Code default settings and their values. You can also
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [less] language.
+    // Configure settings to be overridden for the less language.
     "[less]":  {
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [makefile] language.
+    // Configure settings to be overridden for the makefile language.
     "[makefile]":  {
         "editor.insertSpaces": false
     },
 
-    // Configure settings to be overridden for [markdown] language.
+    // Configure settings to be overridden for the markdown language.
     "[markdown]":  {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
         "editor.wordWrap": "on",
         "editor.quickSuggestions": false
     },
 
-    // Configure settings to be overridden for [scss] language.
+    // Configure settings to be overridden for the plaintext language.
+    "[plaintext]":  {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false
+    },
+
+    // Configure settings to be overridden for the scss language.
     "[scss]":  {
         "editor.suggest.insertMode": "replace"
     },
 
-    // Configure settings to be overridden for [search-result] language.
+    // Configure settings to be overridden for the search-result language.
     "[search-result]":  {
         "editor.lineNumbers": "off"
     },
 
-    // Configure settings to be overridden for [shellscript] language.
+    // Configure settings to be overridden for the shellscript language.
     "[shellscript]":  {
         "files.eol": "\n"
     },
 
-    // Configure settings to be overridden for [yaml] language.
+    // Configure settings to be overridden for the yaml language.
     "[yaml]":  {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
         "editor.autoIndent": "advanced"
     },
+
+// Audio Cues
+
+    // Plays a sound when the active line has a breakpoint.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.lineHasBreakpoint": "auto",
+
+    // Plays a sound when the active line has an error.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.lineHasError": "auto",
+
+    // Plays a sound when the active line has a folded area that can be unfolded.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.lineHasFoldedArea": "auto",
+
+    // Plays a sound when the active line has an inline suggestion.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.lineHasInlineSuggestion": "auto",
+
+    // Plays a sound when the active line has a warning.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.lineHasWarning": "off",
+
+    // Plays a sound when trying to read a line with inlay hints that has no inlay hints.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.noInlayHints": "auto",
+
+    // Plays a sound when the debugger stopped on a breakpoint.
+    //  - auto: Enable audio cue when a screen reader is attached.
+    //  - on: Enable audio cue.
+    //  - off: Disable audio cue.
+    "audioCues.onDebugBreak": "auto",
+
+    // The volume of the audio cues in percent (0-100).
+    "audioCues.volume": 70,
 
 // Remote
 
@@ -3544,6 +4051,12 @@ Below are the Visual Studio Code default settings and their values. You can also
         "tags"
     ],
 
+    // Controls whether the diff editor should be automatically closed when changes are stashed, committed, discarded, staged, or unstaged.
+    "git.closeDiffOnOperation": false,
+
+    // List of git commands (ex: commit, push) that would have their `stdout` logged to the git output. If the git command has a client-side hook configured, the client-side hook's `stdout` will also be logged to the git output.
+    "git.commandsToLog": [],
+
     // Always confirm the creation of empty commits for the 'Git: Commit Empty' command.
     "git.confirmEmptyCommits": true,
 
@@ -3662,6 +4175,14 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Force git to use rebase when running the sync command.
     "git.rebaseWhenSync": false,
 
+    // List of folders that are ignored while scanning for Git repositories when `git.autoRepositoryDetection` is set to `true` or `subFolders`.
+    "git.repositoryScanIgnoredFolders": [
+        "node_modules"
+    ],
+
+    // Controls the depth used when scanning workspace folders for Git repositories when `git.autoRepositoryDetection` is set to `true` or `subFolders`. Can be set to `-1` for no limit.
+    "git.repositoryScanMaxDepth": 1,
+
     // Controls whether to require explicit Git user configuration or allow Git to guess if missing.
     "git.requireGitUserConfig": true,
 
@@ -3711,6 +4232,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether to show the commit author in the Timeline view.
     "git.timeline.showAuthor": true,
 
+    // Controls whether to show uncommitted changes in the Timeline view.
+    "git.timeline.showUncommitted": false,
+
     // Controls how untracked changes behave.
     //  - mixed: All changes, tracked and untracked, appear together and behave equally.
     //  - separate: Untracked changes appear separately in the Source Control view. They are also excluded from several actions.
@@ -3723,8 +4247,14 @@ Below are the Visual Studio Code default settings and their values. You can also
     // Controls whether force pushing uses the safer force-with-lease variant.
     "git.useForcePushWithLease": true,
 
+    // Controls whether GIT_ASKPASS should be overwritten to use the integrated version.
+    "git.useIntegratedAskPass": true,
+
     // Controls whether to enable automatic GitHub authentication for git commands within VS Code.
     "github.gitAuthentication": true,
+
+    // Controls which protocol is used to clone a GitHub repository
+    "github.gitProtocol": "https",
 
     // URI of your GitHub Enterprise Instance
     "github-enterprise.uri": "",
@@ -3776,9 +4306,6 @@ Below are the Visual Studio Code default settings and their values. You can also
         "!**/node_modules/**",
         "**/$KNOWN_TOOLS$/**"
     ],
-
-    // Configures whether property getters will be expanded automatically. If this is false, the getter will appear as `get propertyName` and will only be evaluated when you click on it.
-    "debug.javascript.autoExpandGetters": false,
 
     // When debugging a remote web app, configures whether to automatically tunnel the remote server to your local machine.
     "debug.javascript.automaticallyTunnelRemoteServer": true,
@@ -3849,24 +4376,9 @@ Below are the Visual Studio Code default settings and their values. You can also
     "npm.runSilent": false,
 
     // The default click action used in the npm scripts explorer: `open` or `run`, the default is `open`.
-    "npm.scriptExplorerAction": "open"
+    "npm.scriptExplorerAction": "open",
+
+    // An array of regular expressions that indicate which scripts should be excluded from the NPM Scripts view.
+    "npm.scriptExplorerExclude": []
 }
 ```
-
-## Common questions
-
-### VS Code says "Unable to write settings."
-
-If you try to change a setting (for example turning on Auto Save or selecting a new Color Theme) and you see "Unable to write settings. Please open User Settings to correct errors/warnings in the file and try again.", it means your `settings.json` file is ill-formed or has errors. The errors can be as simple as a missing comma or setting value. Open the Settings editor **File** > **Preferences** > **Settings** (**Code** > **Preferences** > **Settings** on macOS) (`kb(workbench.action.openSettings)`) and you should see the error highlighted with red squiggles.
-
-### How can I reset my user settings?
-
-The easiest way to reset VS Code back to the default settings is to clear your user `settings.json` file. You can open the `settings.json` file with the **Preferences: Open Settings (JSON)** command in the Command Palette (`kb(workbench.action.showCommands)`). Once the file is open in an editor, delete everything between the two curly braces, save the file, and VS Code will go back to using the default values.
-
-### When does it make sense to use workspace settings?
-
-If you're using a workspace that needs custom settings but you don't want to apply them to your other VS Code projects. A good example is language-specific linting rules.
-
-### Where can I find extension settings?
-
-In general, VS Code extensions store their settings in your user or workspaces settings files and they are available through the Settings editor UI (**Preferences: Open Settings (UI)** - `kb(workbench.action.openSettings)`) or directly in the `settings.json` file (**Preferences: Open Settings (JSON)**). Searching by the extension name (for example `gitlens` or `python`) can help filter down settings to just those contributed by an extension.

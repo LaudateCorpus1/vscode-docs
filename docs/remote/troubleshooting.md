@@ -5,7 +5,7 @@ TOCTitle: Tips and Tricks
 PageTitle: Visual Studio Code Remote Development Troubleshooting Tips and Tricks
 ContentId: 42e65445-fb3b-4561-8730-bbd19769a160
 MetaDescription: Visual Studio Code Remote Development troubleshooting tips and tricks for SSH, Containers, and the Windows Subsystem for Linux (WSL)
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 ---
 # Remote Development Tips and Tricks
 
@@ -140,7 +140,7 @@ The Remote - SSH extension installs and maintains the "VS Code Server". The serv
 
 By default, the server listens to `localhost` on a random TCP port that is then forwarded to your local machine. If you are connecting to a **Linux or macOS** host, you can switch to using Unix sockets that are locked down to a particular user. This socket is then forwarded instead of the port.
 
-> **Note:** This setting **disables connection multiplexing** so configuring [public key authentication](#configuring-key-based-authentication) is strongly recommended.
+> **Note:** This setting **disables connection multiplexing** so configuring [public key authentication](#configuring-key-based-authentication) is recommended.
 
 To configure it:
 
@@ -333,6 +333,21 @@ fi
 
 The agent should be running by default on macOS.
 
+### Making local SSH Agent available on the remote
+
+An SSH Agent on your local machine allows the Remote - SSH extension to connect to your chosen remote system without repeatedly prompting for a passphrase, but tools like Git that run on the remote, don't have access to your locally-unlocked private keys.
+
+You can see this by opening the integrated terminal on the remote and running `ssh-add -l`. The command should list the unlocked keys, but instead reports an error about not being able to connect to the authentication agent. Setting `ForwardAgent yes` makes the local SSH Agent available in the remote environment, solving this problem.
+
+You can do this by editing your `.ssh/config` file (or whatever `Remote.SSH.configFile` is set to - use the **Remote-SSH: Open SSH Configuration File...** command to be sure) and adding:
+
+```ssh-config
+Host *
+    ForwardAgent yes
+```
+
+Note that you might want to be more restrictive and only set the option for particular named hosts.
+
 ### Fixing SSH file permission errors
 
 SSH can be strict about file permissions and if they are set incorrectly, you may see errors such as "WARNING: UNPROTECTED PRIVATE KEY FILE!". There are several ways to update file permissions in order to fix this, which are described in the sections below.
@@ -352,7 +367,7 @@ On your local machine, make sure the following permissions are set:
 
 **Windows:**
 
-The specific expected permissions can vary depending on the exact SSH implementation you are using. We strongly recommend using the out of box [Windows 10 OpenSSH Client](https://docs.microsoft.com/windows-server/administration/openssh/openssh_overview).
+The specific expected permissions can vary depending on the exact SSH implementation you are using. We recommend using the out of box [Windows 10 OpenSSH Client](https://docs.microsoft.com/windows-server/administration/openssh/openssh_overview).
 
 In this case, make sure that all of the files in the `.ssh` folder for your remote user on the SSH host is owned by you and no other user has permissions to access it. See the [Windows OpenSSH wiki](https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH) for details.
 
@@ -466,12 +481,11 @@ To force that a file is opened, add `--goto` or use:
 
 `code --file-uri vscode-remote://ssh-remote+remote_server/code/fileWithoutExtension`
 
-
 ### Using rsync to maintain a local copy of your source code
 
 An alternative to [using SSHFS to access remote files](#using-sshfs-to-access-files-on-your-remote-host) is to [use `rsync`](https://rsync.samba.org/) to copy the entire contents of a folder on remote host to your local machine. The `rsync` command will determine which files need to be updated each time it is run, which is far more efficient and convenient than using something like `scp` or `sftp`. This is primarily something to consider if you really need to use multi-file or performance intensive local tools.
 
-The `rsync` command is available out of box on macOS and can be installed using Linux package managers (for example `sudo apt-get install rsync` on Debian/Ubuntu). For Windows, you'll need to either use [WSL](https://docs.microsoft.com/windows/wsl/install-win10) or [Cygwin](https://www.cygwin.com/) to access the command.
+The `rsync` command is available out of box on macOS and can be installed using Linux package managers (for example `sudo apt-get install rsync` on Debian/Ubuntu). For Windows, you'll need to either use [WSL](https://docs.microsoft.com/windows/wsl/install) or [Cygwin](https://www.cygwin.com/) to access the command.
 
 To use the command, navigate to the folder you want to store the synched contents and run the following replacing `user@hostname` with the remote user and hostname / IP and `/remote/source/code/path` with the remote source code location.
 
@@ -502,9 +516,10 @@ The SSH extension provides a command for cleaning up the VS Code Server from the
 If you want to run these steps manually, or if the command isn't working for you, you can run a script like this:
 
 ```bash
-kill -9 `ps ax | grep "remoteExtensionHostAgent.js" | grep -v grep | awk '{print $1}'`
-kill -9 `ps ax | grep "watcherService" | grep -v grep | awk '{print $1}'`
-rm -rf ~/.vscode-server # Or ~/.vscode-server-insiders
+# Kill server processes
+kill -9 `ps aux | \grep vscode-server | \grep USER | \grep -v grep | awk '{print $2}'`
+# Delete related files and folder
+rm -rf $HOME/.vscode-server # Or ~/.vscode-server-insiders
 ```
 
 The VS Code Server was previously installed under `~/.vscode-remote` so you can check that location too.
@@ -687,9 +702,9 @@ This is a [well known issue](https://github.com/debuerreotype/docker-debian-arti
 
 There are two ways to resolve this error:
 
-- **Option 1**: Remove any containers that depend on the image, remove the image, and then try building again. This should download an updated image that is not affected by the problem. See [cleaning out unused containers and images](#cleaning-out-unused-containers-and-images) for details.
+* **Option 1**: Remove any containers that depend on the image, remove the image, and then try building again. This should download an updated image that is not affected by the problem. See [cleaning out unused containers and images](#cleaning-out-unused-containers-and-images) for details.
 
-- **Option 2**: If you don't want to delete your containers or images, add this line into your Dockerfile before any `apt` or `apt-get` command. It adds the needed source lists for Jessie:
+* **Option 2**: If you don't want to delete your containers or images, add this line into your Dockerfile before any `apt` or `apt-get` command. It adds the needed source lists for Jessie:
 
     ```Dockerfile
     # Add archived sources to source list if base image uses Debian 8 / Jessie
@@ -1048,8 +1063,8 @@ If an incompatible extension has been installed on a remote host, container, or 
 
 2. Next, use a separate terminal / command prompt to connect to the remote host, container, or WSL.
 
-   - If SSH or WSL, connect to the environment accordingly (run `ssh` to connect to the server or open WSL terminal).
-   - If using a container, identify the container ID by calling `docker ps -a` and looking through the list for an image with the correct name. If the container is stopped, run `docker run -it <id> /bin/sh`. If it is running, run `docker exec -it <id> /bin/sh`.
+   * If SSH or WSL, connect to the environment accordingly (run `ssh` to connect to the server or open WSL terminal).
+   * If using a container, identify the container ID by calling `docker ps -a` and looking through the list for an image with the correct name. If the container is stopped, run `docker run -it <id> /bin/sh`. If it is running, run `docker exec -it <id> /bin/sh`.
 
 3. Once you are connected, run `rm -rf ~/.vscode-server/extensions` for VS Code stable and/or `rm -rf ~/.vscode-server-insiders/extensions` for VS Code Insiders to remove all extensions.
 

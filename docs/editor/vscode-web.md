@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: VS Code for the Web
 ContentId: d665a790-1da1-4f45-bc0f-c09822528e55
 PageTitle: Visual Studio Code for the Web
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: Visual Studio Code for the Web and the vscode.dev URL
 ---
 # Visual Studio Code for the Web
@@ -13,7 +13,7 @@ Visual Studio Code for the Web provides a free, zero-install Microsoft Visual St
 
 VS Code for the Web has many of the features of VS Code desktop that you love, including search and syntax highlighting while browsing and editing, along with extension support to work on your codebase and make simpler edits. In addition to opening repositories, forks, and pull requests from source control providers like GitHub and Azure Repos (in preview), you can also work with code that is stored on your local machine.
 
-VS Code for the Web runs entirely in your web browser, so there are certain limitations compared to the desktop experience, which you can read more about [below](#current-limitations).
+VS Code for the Web runs entirely in your web browser, so there are certain limitations compared to the desktop experience, which you can read more about [below](#limitations).
 
 ## Relationship to VS Code desktop
 
@@ -99,7 +99,7 @@ When working with local files, VS Code for the Web loads them through your brows
 
 ## Saving and sharing work
 
-When working on a local file in the web, your work is saved automatically if you have [Auto Save](/docs/editor/codebasics.md#saveauto-save) enabled. You can also save manually as you do when working in desktop VS Code (for example **File** > **Save**).
+When working on a local file in the web, your work is saved automatically if you have [Auto Save](/docs/editor/codebasics.md#save-auto-save) enabled. You can also save manually as you do when working in desktop VS Code (for example **File** > **Save**).
 
 When working on a remote repository, your work is saved in the browser's local storage until you commit it. If you open a repo or pull request using GitHub Repositories, you can push your changes in the Source Control view to persist any new work.
 
@@ -145,6 +145,33 @@ There are also extensions that run in the browser with partial support only. A g
 
 Edge and Chrome today support the [File System API](https://developer.mozilla.org/docs/Web/API/File_System_Access_API), allowing web pages to access the local file system. If your browser does not support the File System API, you cannot open a folder locally, but you can open files instead.
 
+### Browser support
+
+You can use VS Code for the Web in Chrome, Edge, Firefox, and Safari.
+
+Webviews might appear differently or have some unexpected behavior in Firefox and Safari. You can view issue queries in the VS Code GitHub repo to track issues related to specific browsers, such as with the [Safari label](https://github.com/microsoft/vscode/labels/safari) and [Firefox label](https://github.com/microsoft/vscode/labels/firefox).
+
+There are additional steps you can take to improve your browser experience using VS Code for the Web. Review the [Additional browser setup](#additional-browser-setup) section for more information.
+
+### Mobile support
+
+You can use VS Code for the Web on mobile devices, but smaller screens may have certain limitations.
+
+### Keybindings
+
+Certain keybindings may also work differently in the web.
+
+| Issue | Reason |
+|-|-|
+| `kb(workbench.action.showCommands)` won't launch the Command Palette in Firefox. | `kb(workbench.action.showCommands)` is reserved in Firefox. <br> As a workaround, use `kbstyle(F1)` to launch the Command Palette. |
+| `kb(workbench.action.files.newUntitledFile)` for new file doesn't work in web. | `kb(workbench.action.files.newUntitledFile)` opens a new window instead. <br> As a workaround, you can use `kbstyle(Ctrl+Alt+N)` (`kbstyle(Cmd+Alt+N)` on macOS). |
+| `kb(workbench.action.closeActiveEditor)` for closing an editor doesn't work in web. | `kb(workbench.action.closeActiveEditor)` closes the current tab in browsers. <br> As a workaround, you can use `kbstyle(Ctrl+Shift+Alt+N)` (`kbstyle(Cmd+Shift+Alt+N)` on macOS). |
+| `kb(workbench.action.tasks.build)` will not toggle the favorites bar in the browser. | VS Code for the Web overrides this and redirects to the "Build" menu in the Command Palette. |
+
+## Additional browser setup
+
+There are additional browser configuration steps you can take when working with VS Code in a browser.
+
 ### Opening new tabs and windows
 
 In certain cases, you may need to open a new tab or window while working in VS Code for the Web. VS Code might ask you for permission to access the clipboard when reading from it. Depending on your browser, you may grant access to the clipboard or otherwise allow for pop-up windows in different ways:
@@ -153,19 +180,4 @@ In certain cases, you may need to open a new tab or window while working in VS C
 
 ![Allow clipboard access in the browser](images/vscode-web/allow-clipboard-access.png)
 
-* Safari: In the Safari browser, go to **Preferences...** > **Websites** > **Pop-up Windows** > `vscode.dev` (or `insiders.vscode.dev` for the Insiders version), and select **Allow** from the dropdown.
-
-### Keybindings
-
-Certain keybindings may also work differently in the web.
-
-| Issue | Reason |
-|-|-|
-| `kbstyle(Ctrl+Shift+P)` won't launch the Command Palette in Firefox. | `kbstyle(Ctrl+Shift+P)` is reserved in Firefox. <br> As a workaround, use `kbstyle(F1)` to launch the Command Palette. |
-| `kbstyle(Ctrl+N)` for new file doesn't work in web. | `kbstyle(Ctrl+N)` opens a new window instead. <br> As a workaround, you can use `kbstyle(Ctrl+Alt+N)`. |
-| `kbstyle(Ctrl+W)` for closing an editor doesn't work in web. | `kbstyle(Ctrl+W)` closes the current tab in browsers. <br> As a workaround, you can use `kbstyle(Ctrl+Shift+Alt+N)`. |
-| `kbstyle(Ctrl+Shift+B)` will not toggle the favorites bar in the browser. | VS Code for the Web overrides this and redirects to the "Build" menu in the Command Palette. |
-
-### Mobile support
-
-You can use VS Code for the Web on mobile devices, but smaller screens may have certain limitations.
+* Safari: In the Safari browser, go to **Preferences...** > **Websites** > **Pop-up Windows** > the domain you're accessing (for example, `vscode.dev`), and select **Allow** from the dropdown.

@@ -5,7 +5,7 @@ TOCTitle: Start processes
 PageTitle: Start a processes when a container starts
 ContentId: 5be7285b-998b-4378-bdc4-90915e858eb7
 MetaDescription: Start a process when a container starts
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 ---
 # Start a process when the container starts
 
@@ -71,7 +71,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-focal
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "sleep", "infinity"' ]
+CMD [ "sleep", "infinity" ]
 ```
 
 The `CMD` here makes sure the container stays running by default. Keeping your startup steps in the `ENTRYPOINT` allows you to safely override the command when using `docker run` with your image or using Docker Compose. This resolves to the following:
@@ -83,7 +83,7 @@ The `CMD` here makes sure the container stays running by default. Keeping your s
 Next, create a `docker-entrypoint.sh` script:
 
 ```bash
-#!/usr/env bash
+#!/usr/bin/env bash
 
 echo "Hello from our entrypoint!"
 

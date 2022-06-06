@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Snippets
 ContentId: 79CD9B45-97FF-48B1-8DD5-2555F56206A6
 PageTitle: Snippets in Visual Studio Code
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: It is easy to add code snippets to Visual Studio Code both for your own use or to share with others on the public Extension Marketplace. TextMate .tmSnippets files are supported.
 ---
 # Snippets in Visual Studio Code
@@ -86,7 +86,7 @@ Every snippet is scoped to one, several, or all ("global") languages based on wh
 
 Single-language user-defined snippets are defined in a specific language's snippet file (for example `javascript.json`), which you can access by language identifier through **Preferences: Configure User Snippets**. A snippet is only accessible when editing the language for which it is defined.
 
-Multi-language and global user-defined snippets are all defined in "global" snippet files (JSON with the file suffix `.code-snippets`), which is also accessible through **Preferences: Configure User Snippets**. In a global snippets file, a snippet definition may have an additional `scope` property that takes one or more language identifiers, which makes the snippet available only for those specified languages. If no `scope` property is given, then the global snippet is available in **all** languages.
+Multi-language and global user-defined snippets are all defined in "global" snippet files (JSON with the file suffix `.code-snippets`), which is also accessible through **Preferences: Configure User Snippets**. In a global snippets file, a snippet definition may have an additional `scope` property that takes one or more [language identifiers](/docs/languages/identifiers.md), which makes the snippet available only for those specified languages. If no `scope` property is given, then the global snippet is available in **all** languages.
 
 Most user-defined snippets are scoped to a single language, and so are defined in a language-specific snippet file.
 
@@ -137,12 +137,12 @@ For inserting the current date and time:
 * `CURRENT_MONTH` The month as two digits (example '02')
 * `CURRENT_MONTH_NAME` The full name of the month (example 'July')
 * `CURRENT_MONTH_NAME_SHORT` The short name of the month (example 'Jul')
-* `CURRENT_DATE` The day of the month
+* `CURRENT_DATE` The day of the month as two digits (example '08')
 * `CURRENT_DAY_NAME` The name of day (example 'Monday')
 * `CURRENT_DAY_NAME_SHORT` The short name of the day (example 'Mon')
 * `CURRENT_HOUR` The current hour in 24-hour clock format
-* `CURRENT_MINUTE` The current minute
-* `CURRENT_SECOND` The current second
+* `CURRENT_MINUTE` The current minute as two digits
+* `CURRENT_SECOND` The current second as two digits
 * `CURRENT_SECONDS_UNIX` The number of seconds since the Unix epoch
 
 For inserting random values:
@@ -259,7 +259,7 @@ You can create custom [keybindings](/docs/getstarted/keybindings.md) to insert s
 
 The keybinding will invoke the **Insert Snippet** command but instead of prompting you to select a snippet, it will insert the provided snippet. You define the custom [keybinding](/docs/getstarted/keybindings.md) as usual with a keyboard shortcut, command ID, and optional [when clause context](/docs/getstarted/keybindings.md#when-clause-contexts) for when the keyboard shortcut is enabled.
 
-Also, instead of using the `snippet` argument value to define your snippet inline, you can reference an existing snippet by using the `langId` and `name` arguments. The `langId` argument is the name of the JSON user snippet file and `name` is the snippet's unique name from this file:
+Also, instead of using the `snippet` argument value to define your snippet inline, you can reference an existing snippet by using the `langId` and `name` arguments. The `langId` argument selects the language for which the snippet denoted by `name` is inserted, e.g the sample below selects the `myFavSnippet` that's available for `csharp`-files.
 
 ```json
 {

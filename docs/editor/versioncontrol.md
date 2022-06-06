@@ -4,12 +4,12 @@ Area: editor
 TOCTitle: Version Control
 ContentId: 7E22CCC0-2AB8-4729-A4C9-BE2B16853820
 PageTitle: Version Control in Visual Studio Code
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: Visual Studio Code source code support with integrated Git support.
 ---
 # Using Version Control in VS Code
 
-Visual Studio Code has integrated source control management (SCM) and includes [Git](https://git-scm.com/) support in-the-box. Many other source control providers are available through [extensions](/docs/editor/extension-marketplace.md) on the VS Code Marketplace.
+Visual Studio Code has integrated source control management (SCM) and includes [Git](https://git-scm.com/) support out-of-the-box. Many other source control providers are available through [extensions](/docs/editor/extension-marketplace.md) on the VS Code Marketplace.
 
 <div class="marketplace-extensions-scm-curated"></div>
 
@@ -242,7 +242,8 @@ You can always set up a [credential helper](https://help.github.com/articles/cac
 
 ### How can I sign in to Git with my Azure DevOps organization that requires multi-factor authentication?
 
-There are now [Git credential helpers](https://devblogs.microsoft.com/devops/git-credential-manager-for-mac-and-linux) that assist with multi-factor authentication. You can download these from [Git Credential Manager for Mac and Linux](https://github.com/microsoft/Git-Credential-Manager-for-Mac-and-Linux) and [Git Credential Manager for Windows](https://github.com/microsoft/Git-Credential-Manager-for-Windows).
+[Git Credential Manager](https://github.com/GitCredentialManager/git-credential-manager) (GCM) is the recommended Git credential helper for Windows, macOS, and Linux. If you're running Git for Windows, GCM has already been installed and configured for you. If you're running on macOS or Linux, the GCM [README](https://github.com/GitCredentialManager/git-credential-manager#download-and-install)
+has setup instructions.
 
 ### I have GitHub Desktop installed on my computer but VS Code ignores it
 

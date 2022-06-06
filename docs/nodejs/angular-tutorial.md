@@ -3,14 +3,14 @@ Order: 6
 Area: nodejs
 TOCTitle: Angular Tutorial
 ContentId: f6b7b0c2-ccbe-4e5f-8f2e-6c1ecea52f69
-PageTitle: Angular JavaScript Tutorial in Visual Studio Code
-DateApproved: 11/4/2021
-MetaDescription: Angular JavaScript tutorial showing IntelliSense, debugging, and code navigation support in the Visual Studio Code editor.
+PageTitle: Angular TypeScript Tutorial in Visual Studio Code
+DateApproved: 5/5/2022
+MetaDescription: Angular TypeScript tutorial showing IntelliSense, debugging, and code navigation support in the Visual Studio Code editor.
 MetaSocialImage: images/angular/Welcome-to-app.png
 ---
 # Using Angular in Visual Studio Code
 
-[Angular](https://angular.io/) is a popular JavaScript library developed by Google for building web application user interfaces. The Visual Studio Code editor supports Angular IntelliSense and code navigation out of the box.
+[Angular](https://angular.io/) is a popular web development platform developed by Google. The Visual Studio Code editor supports Angular IntelliSense and code navigation out of the box.
 
 ![Welcome to app](images/angular/Welcome-to-app.png)
 
@@ -80,7 +80,7 @@ Through the TypeScript language service, VS Code can also provide type definitio
 
 Press `kbstyle(Escape)` to close the Peek window.
 
-## Hello World!
+## Hello World
 
 Let's update the sample application to "Hello World". Go back to the `app.component.ts` file and change the `title` string in `AppComponent` to "Hello World".
 
@@ -160,11 +160,11 @@ If you'd like to see a full MEAN (MongoDB, Express, Angular, Node.js) stack exam
 
 ### React
 
-[React](https://facebook.github.io/react/) is another popular web framework. If you'd like to see an example of React working with VS Code, check out the [Using React in VS Code](/docs/nodejs/reactjs-tutorial.md) tutorial. It will walk you through creating an React application and configuring the `launch.json` file for the JavaScript debugger.
+[React](https://reactjs.org) is a library for building user interfaces and it is more minimal than angular. If you'd like to see an example of React working with VS Code, check out the [Using React in VS Code](/docs/nodejs/reactjs-tutorial.md) tutorial. It will walk you through creating an React application and configuring the `launch.json` file for the JavaScript debugger.
 
 ## Angular Extensions
 
-In addition to the functionality, VS Code provides out of the box, you can install VS Code extensions for greater functionality.
+In addition to the features VS Code provides out of the box, you can install VS Code extensions for greater functionality.
 
 <div class="marketplace-extensions-angular-curated"></div>
 

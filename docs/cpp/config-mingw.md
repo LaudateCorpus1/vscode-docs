@@ -4,7 +4,7 @@ Area: cpp
 TOCTitle: GCC on Windows
 ContentId: 7efec972-6556-4526-8aa8-c73b3319d612
 PageTitle: Get Started with C++ and Mingw-w64 in Visual Studio Code
-DateApproved: 7/15/2021
+DateApproved: 5/13/2022
 MetaDescription: Configuring the C++ extension in Visual Studio Code to target g++ and gdb on a Mingw-w64 installation
 ---
 # Using GCC with MinGW
@@ -25,12 +25,14 @@ To successfully complete this tutorial, you must do the following steps:
 
     ![C/C++ extension](images/cpp/cpp-extension.png)
 
-1. Get the latest version of Mingw-w64 via [MSYS2](https://www.msys2.org/), which provides up-to-date native builds of GCC, Mingw-w64, and other helpful C++ tools and libraries.  [Click here](https://github.com/msys2/msys2-installer/releases/download/2021-06-04/msys2-x86_64-20210604.exe) to download the MSYS2 installer. Then follow the instructions on the [MSYS2 website](https://www.msys2.org/) to install Mingw-w64.
+1. Get the latest version of Mingw-w64 via [MSYS2](https://www.msys2.org/), which provides up-to-date native builds of GCC, Mingw-w64, and other helpful C++ tools and libraries. You can download the latest installer from the MSYS2 page or use this [link to the installer](https://github.com/msys2/msys2-installer/releases/download/2022-01-18/msys2-x86_64-20220118.exe).
+
+1. Follow the **Installation** instructions on the [MSYS2 website](https://www.msys2.org/) to install Mingw-w64. Take care to run each required Start menu and `pacman` command, especially Step 7, when you will install the actual Mingw-w64 toolset (`pacman -S --needed base-devel mingw-w64-x86_64-toolchain`).
 
 1. Add the path to your Mingw-w64 `bin` folder to the Windows `PATH` environment variable by using the following steps:
    1. In the Windows search bar, type 'settings' to open your Windows Settings.
    1. Search for **Edit environment variables for your account**.
-   1. Choose the `Path` variable and then select **Edit**.
+   1. Choose the `Path` variable in your **User variables** and then select **Edit**.
    1. Select **New** and add the Mingw-w64 destination folder path to the system path. The exact path depends on which version of Mingw-w64 you have installed and where you installed it. If you used the settings above to install Mingw-w64, then add this to the path: `C:\msys64\mingw64\bin`.
    1. Select **OK** to save the updated PATH. You will need to reopen any console windows for the new PATH location to be available.
 
@@ -57,7 +59,9 @@ cd helloworld
 code .
 ```
 
-The "code ." command opens VS Code in the current working folder, which becomes your "workspace". As you go through the tutorial, you will see three files created in a `.vscode` folder in the workspace:
+The "code ." command opens VS Code in the current working folder, which becomes your "workspace". Accept the [Workspace Trust](/docs/editor/workspace-trust.md) dialog by selecting **Yes, I trust the authors** since this is a folder you created.
+
+As you go through the tutorial, you will see three files created in a `.vscode` folder in the workspace:
 
 - `tasks.json` (build instructions)
 - `launch.json` (debugger settings)
@@ -96,7 +100,7 @@ Now press `kb(workbench.action.files.save)` to save the file. Notice how the fil
 
 ![File Explorer](images/mingw/file-explorer-mingw.png)
 
-You can also enable [Auto Save](/docs/editor/codebasics.md#saveauto-save) to automatically save your file changes, by checking **Auto Save** in the main **File** menu.
+You can also enable [Auto Save](/docs/editor/codebasics.md#save-auto-save) to automatically save your file changes, by checking **Auto Save** in the main **File** menu.
 
 The Activity Bar on the far left lets you open different views such as **Search**, **Source Control**, and **Run**. You'll look at the **Run** view later in this tutorial. You can find out more about the other views in the VS Code [User Interface documentation](/docs/getstarted/userinterface.md).
 
@@ -110,15 +114,26 @@ In your new `helloworld.cpp` file, hover over `vector` or `string` to see type i
 
 You can press the `kbstyle(Tab)` key to insert the selected member; then, when you add the opening parenthesis, you will see information about any arguments that the function requires.
 
-## Build helloworld.cpp
+## Run helloworld.cpp
 
-Next, you'll create a `tasks.json` file to tell VS Code how to build (compile) the program. This task will invoke the g++ compiler to create an executable file based on the source code.
+Remember, the C++ extension uses the C++ compiler you have installed on your machine to build your program. Make sure you have a C++ compiler installed before attempting to run and debug `helloworld.cpp` in VS Code.
 
-From the main menu, choose **Terminal** > **Configure Default Build Task**. In the dropdown, which will display a tasks dropdown listing various predefined build tasks for C++ compilers. Choose **g++.exe build active file**, which will build the file that is currently displayed (active) in the editor.
+1. Open `helloworld.cpp` so that it is the active file.
+2. Press the play button in the top right corner of the editor.
 
-![Tasks C++ build dropdown](images/mingw/build-active-file.png)
+   ![Screenshot of helloworld.cpp and play button](images/playbutton/run-play-button.png)
 
-This will create a `tasks.json` file in a `.vscode` folder and open it in the editor.
+3. Choose **C/C++: g++.exe build and debug active file** from the list of detected compilers on your system.
+
+   ![C++ debug configuration dropdown](images/playbutton/select-gcc-compiler.png)
+
+You'll only be asked to choose a compiler the first time you run `helloworld.cpp`. This compiler will be set as the "default" compiler in `tasks.json` file.
+
+4. After the build succeeds, your program's output will appear in the integrated **Terminal**.
+
+    ![screenshot of program output](images/playbutton/helloworld-terminal-output.png)
+
+The first time you run your program, the C++ extension creates `tasks.json`, which you'll find in your project's `.vscode` folder. `tasks.json` stores build configurations.
 
 Your new `tasks.json` file should look similar to the JSON below:
 
@@ -128,8 +143,9 @@ Your new `tasks.json` file should look similar to the JSON below:
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe build active file",
-            "command": "C:/msys64/mingw64/bin/g++.exe",
+            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
+                "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
@@ -145,102 +161,72 @@ Your new `tasks.json` file should look similar to the JSON below:
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "compiler: C:/msys64/mingw64/bin/g++.exe"
+            "detail": "Task generated by Debugger."
         }
     ],
     "version": "2.0.0"
 }
 ```
 
-The `command` setting specifies the program to run; in this case that is g++. The `args` array specifies the command-line arguments that will be passed to g++. These arguments must be specified in the order expected by the compiler. This task tells g++ to take the active file (`${file}`), compile it, and create an executable file in the current directory (`${fileDirname}`) with the same name as the active file but with the `.exe` extension (`${fileBasenameNoExtension}.exe`), resulting in `helloworld.exe` for our example.
-
 >**Note**: You can learn more about `tasks.json` variables in the [variables reference](/docs/editor/variables-reference.md).
+
+The `command` setting specifies the program to run; in this case that is g++.
+The `args` array specifies the command-line arguments that will be passed to g++. These arguments must be specified in the order expected by the compiler.
+
+This task tells g++ to take the active file (`${file}`), compile it, and create an executable file in the current directory (`${fileDirname}`) with the same name as the active file but with the `.exe` extension (`${fileBasenameNoExtension}.exe`), resulting in `helloworld.exe` for our example.
 
 The `label` value is what you will see in the tasks list; you can name this whatever you like.
 
-The `"isDefault": true` value in the `group` object specifies that this task will be run when you press `kb(workbench.action.tasks.build)`. This property is for convenience only; if you set it to false, you can still run it from the Terminal menu with **Tasks: Run Build Task**.
+The `detail` value is what you will as the description of the task in the tasks list. It's highly recommended to rename this value to differentiate it from similar tasks.
 
-### Running the build
+From now on, the play button will read from `tasks.json` to figure out how to build and run your program. You can define multiple build tasks in `tasks.json`, and whichever task is marked as the default will be used by the play button. In case you need to change the default compiler, you can run **Tasks: Configure default build task**. Alternatively you can modify the `tasks.json` file and remove the default by replacing this segment:
 
-1. Go back to `helloworld.cpp`. Your task builds the active file and you want to build `helloworld.cpp`.
-1. To run the build task defined in `tasks.json`, press `kb(workbench.action.tasks.build)` or from the **Terminal** main menu choose **Run Build Task**.
-1. When the task starts, you should see the Integrated Terminal panel appear below the source code editor. After the task completes, the terminal shows output from the compiler that indicates whether the build succeeded or failed. For a successful g++ build, the output looks something like this:
+```json
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    },
+```
 
-   ![G++ build output in terminal](images/mingw/mingw-build-output.png)
+with this:
 
-1. Create a new terminal using the **+** button and you'll have a new terminal with the `helloworld` folder as the working directory. Run `dir` and you should now see the executable `helloworld.exe`.
-
-    ![Hello World in PowerShell terminal](images/mingw/mingw-dir-output.png)
-
-1. You can run `helloworld` in the terminal by typing `helloworld.exe` (or `.\helloworld.exe` if you use a PowerShell terminal).
-
->**Note**: You might need to press `kbstyle(Enter)` a couple of times initially to see the PowerShell prompt in the terminal. This issue should be fixed in a future release of Windows.
+```json
+    "group": "build",
+```
 
 ### Modifying tasks.json
 
-You can modify your `tasks.json` to build multiple C++ files by using an argument like `"${workspaceFolder}\\*.cpp"` instead of `${file}`. This will build all `.cpp` files in your current folder. You can also modify the output filename by replacing `"${fileDirname}\\${fileBasenameNoExtension}.exe"` with a hard-coded filename (for example `"${workspaceFolder}\\myProgram.exe"`).
+You can modify your `tasks.json` to build multiple C++ files by using an argument like `"${workspaceFolder}/*.cpp"` instead of `${file}`.This will build all `.cpp` files in your current folder. You can also modify the output filename by replacing `"${fileDirname}\\${fileBasenameNoExtension}.exe"` with a hard-coded filename (for example `"${workspaceFolder}\\myProgram.exe"`).
 
 ## Debug helloworld.cpp
 
-Next, you'll create a `launch.json` file to configure VS Code to launch the GDB debugger when you press `kb(workbench.action.debug.start)` to debug the program.
-
-1. From the main menu, choose **Run** > **Add Configuration...** and then choose **C++ (GDB/LLDB)**.
-1. You'll then see a dropdown for various predefined debugging configurations. Choose **g++.exe build and debug active file**.
-
-![C++ debug configuration dropdown](images/mingw/build-and-debug-active-file.png)
-
-VS Code creates a `launch.json` file, opens it in the editor, and builds and runs 'helloworld'.
-
-```json
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "g++.exe - Build and debug active file",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "C/C++: g++.exe build active file"
-        }
-    ]
-}
-```
-
-The `program` setting specifies the program you want to debug. Here it is set to the active file folder `${fileDirname}` and active filename with the `.exe` extension `${fileBasenameNoExtension}.exe`, which if `helloworld.cpp` is the active file will be `helloworld.exe`.
-
-By default, the C++ extension won't add any breakpoints to your source code and the `stopAtEntry` value is set to `false`.
-
-Change the `stopAtEntry` value to `true` to cause the debugger to stop on the `main` method when you start debugging.
-
->**Note**: The `preLaunchTask` setting is used to specify task to be executed before launch. Make sure it is consistent with the `tasks.json` file `label` setting.
-
-### Start a debugging session
-
 1. Go back to `helloworld.cpp` so that it is the active file.
-2. Press `kb(workbench.action.debug.start)` or from the main menu choose **Run > Start Debugging**. Before you start stepping through the source code, let's take a moment to notice several changes in the user interface:
+2. Set a breakpoint by clicking on the editor margin or using F9 on the current line.
+   ![screenshot of breakpoint in helloworld.cpp](images/playbutton/cpp-breakpoint.png)
+3. From the drop-down next to the play button, select **Debug C/C++ File**.
+   ![Screenshot of play button drop-down](images/playbutton/run-debug-arrow.png)
+   ![Screenshot of play button drop-down](images/playbutton/debug-cpp-file-play-button.png)
+4. Choose **C/C++: g++ build and debug active file** from the list of detected compilers on your system (you'll only be asked to choose a compiler the first time you run/debug `helloworld.cpp`).
+   ![C++ debug configuration dropdown](images/playbutton/select-gcc-compiler.png)
+
+The play button has two modes: **Run C/C++ File** and **Debug C/C++ File**. It will default to the last-used mode. If you see the debug icon in the play button, you can just click the play button to debug, instead of using the drop-down.
+
+   ![screenshot of play button in debug mode](images/playbutton/debug-button.png)
+
+## Explore the debugger
+
+Before you start stepping through the code, let's take a moment to notice several changes in the user interface:
 
 - The Integrated Terminal appears at the bottom of the source code editor. In the **Debug Output** tab, you see output that indicates the debugger is up and running.
-- The editor highlights the first statement in the `main` method. This is a breakpoint that the C++ extension automatically sets for you:
+- The editor highlights the line where you set a breakpoint before starting the debugger:
 
-   ![Initial breakpoint](images/mingw/stopAtEntry.png)
+   ![Initial breakpoint](images/playbutton/breakpoint-debug.png)
 
 - The Run view on the left shows debugging information. You'll see an example later in the tutorial.
 
 - At the top of the code editor, a debugging control panel appears. You can move this around the screen by grabbing the dots on the left side.
+
+   ![Debugging controls](images/cpp/debug-controls.png)
 
 ## Step through the code
 
@@ -285,6 +271,59 @@ Sometimes you might want to keep track of the value of a variable as your progra
 1. To quickly view the value of any variable while execution is paused on a breakpoint, you can hover over it with the mouse pointer.
 
    ![Mouse hover](images/cpp/mouse-hover.png)
+
+## Customize debugging with launch.json
+
+When you debug with the play button or `kb(workbench.action.debug.start)`, the C++ extension creates a dynamic debug configuration on the fly.
+
+There are cases where you'd want to customize your debug configuration, such as specifying arguments to pass to the program at runtime. You can define custom debug configurations in a `launch.json` file.
+
+To create `launch.json`, choose **Add Debug Configuration** from the play button drop-down menu.
+
+![Add debug configuration play button menu](images/playbutton/add-debug-configuration.png)
+
+You'll then see a dropdown for various predefined debugging configurations. Choose **C/C++: g++.exe build and debug active file**.
+
+![C++ debug configuration dropdown](images/playbutton/select-gcc-compiler.png)
+
+VS Code creates a `launch.json` file, which looks something like this:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++: g++.exe build and debug active file",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C/C++: g++.exe build active file"
+    }
+  ]
+}
+```
+
+In the JSON above, `program` specifies the program you want to debug. Here it is set to the active file folder (`${fileDirname}`) and active filename with the `.exe` extension (`${fileBasenameNoExtension}.exe`), which if `helloworld.cpp` is the active file will be `helloworld.exe`. The `args` property is an array of arguments to pass to the program at runtime.
+
+By default, the C++ extension won't add any breakpoints to your source code and the `stopAtEntry` value is set to `false`.
+
+Change the `stopAtEntry` value to `true` to cause the debugger to stop on the `main` method when you start debugging.
+
+> From now on, the play button and `kb(workbench.action.debug.start)` will read from your `launch.json` file when launching your program for debugging.
 
 ## C/C++ configurations
 
@@ -336,9 +375,9 @@ The C/C++ extension attempts to populate `compilerPath` with the default compile
 
 The `compilerPath` search order is:
 
-* First check for the Microsoft Visual C++ compiler
-* Then look for g++ on Windows Subsystem for Linux (WSL)
-* Then g++ for Mingw-w64.
+- First check for the Microsoft Visual C++ compiler
+- Then look for g++ on Windows Subsystem for Linux (WSL)
+- Then g++ for Mingw-w64.
 
 If you have Visual Studio or WSL installed, you may need to change `compilerPath` to match the preferred compiler for your project. For example, if you installed Mingw-w64 version 8.1.0 using the i686 architecture, Win32 threading, and sjlj exception handling install options, the path would look like this: `C:\Program Files (x86)\mingw-w64\i686-8.1.0-win32-sjlj-rt_v6-rev0\mingw64\bin\g++.exe`.
 
@@ -347,6 +386,10 @@ If you have Visual Studio or WSL installed, you may need to change `compilerPath
 ### MSYS2 is installed, but g++ and gdb are still not found
 
 You must follow the steps on the [MSYS2 website](https://www.msys2.org/) and use the MSYS CLI to install Mingw-w64, which contains those tools.
+
+### MinGW 32-bit
+
+If you need a 32-bit version of the MinGW toolset, consult the [Downloading](https://www.msys2.org/wiki/MSYS2-installation/) section on the MSYS2 wiki. It includes links to both 32-bit and 64-bit installation options.
 
 ## Next steps
 

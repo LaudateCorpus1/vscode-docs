@@ -4,7 +4,7 @@ Area: getstarted
 TOCTitle: Telemetry
 PageTitle: Visual Studio Code Telemetry
 ContentId: 47a2e3b1-24f2-42e6-a6e6-272c2a0f3218
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: Learn about Visual Studio Code collected telemetry and how to opt out.
 ---
 # Telemetry
@@ -48,9 +48,7 @@ If you use the JSON editor for your settings, add the following line:
 
 VS Code lets you add features to the product by installing Microsoft and third-party extensions. These extensions may be collecting their own usage data and are not controlled by the `telemetry.telemetryLevel` setting. Consult the specific extension's documentation to learn about its telemetry reporting and whether it can be disabled.
 
-For example, the [GitHub Pull Requests extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) has a setting to disable its telemetry collection:
-
-![GitHub Pull Request extension disable telemetry](images/telemetry/GHPR-disable-telemetry.png)
+Extension authors may refer to the ["For Extension Authors"](#for-extension-authors) section for guidance on implementing telemetry best practices within their extension.
 
 ## Output channel for telemetry events
 
@@ -128,13 +126,7 @@ When you open a file type for which VS Code does not have any precomputed recomm
 
 ## For extension authors
 
-If you have created a VS Code extension, you can use the VS Code telemetry infrastructure for reporting through the [vscode-extension-telemetry](https://www.npmjs.com/package/vscode-extension-telemetry) npm module. This module provides a consistent way for extensions to report telemetry over [Azure Monitor and Application Insights](https://azure.microsoft.com/services/monitor/). The module respects the user's decision about whether or not to send telemetry data via the `telemetry.telemetryLevel` setting.
-
-Follow this guide to set up [Azure Monitor](https://docs.microsoft.com/azure/azure-monitor/learn/nodejs-quick-start) and get your Application Insights instrumentation key.
-
-If you would prefer to not utilize the npm module, it is still recommended that extension authors respect the user's choice by utilizing the `isTelemetryEnabled` and `onDidChangeTelemetryEnabled` API.
-
-Additionally, telemetry authors can add a `telemetry.json` file to their root build directory for their telemetry to show up in the `--telemetry` dump that VS Code produces.
+Please read the [extension guides telemetry document](/api/extension-guides/telemetry.md).
 
 ## Next steps
 

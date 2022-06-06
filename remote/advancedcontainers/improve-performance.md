@@ -5,7 +5,7 @@ TOCTitle: Improve performance
 PageTitle: Improve container performance
 ContentId: 0956602e-d7a7-4071-8345-86075fd81374
 MetaDescription: Improve container performance
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 ---
 # Improve disk performance
 
@@ -20,8 +20,6 @@ See [Open a WSL 2 folder in a container on Windows](/docs/remote/containers.md#o
 ### Video: Speed up Remote-Containers on Windows
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MUsROtVmPJM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<br><br>
 
 ## Use Clone Repository in Container Volume
 
@@ -104,6 +102,10 @@ While vscode-remote-try-node does not use Docker Compose, the steps are similar,
     ```
 
 If you've already built the container and connected to it, run **Remote-Containers: Rebuild Container** from the Command Palette (`kbstyle(F1)`) to pick up the change. Otherwise run **Remote-Containers: Open Folder in Container...** to connect to the container.
+
+### Video: Speed up npm install in a dev container
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iDdJWIPRUx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Use a named volume for your entire source tree
 

@@ -4,14 +4,14 @@ Area: containers
 TOCTitle: Customize
 ContentId: 6784FBBE-9EE4-44A8-AC48-A52617EB1968
 PageTitle: Reference for Visual Studio Code Docker extension properties and tasks.
-DateApproved: 08/05/2021
+DateApproved: 04/18/2022
 MetaDescription: Reference for Docker build and Docker run tasks and properties in the Visual Studio Code Docker extension.
 ---
 # Customize the Docker extension
 
 The Docker extension includes several Visual Studio Code tasks to control the behavior of Docker [build](#docker-build-task) and [run](#docker-run-task), and form the basis of container startup for debugging.
 
-The tasks allow for a great deal of control and customization. The final configuration is a combination of general defaults, platform-specific defaults (such as Node.js, Python, or .NET Core), and user input. User input takes precedence when it conflicts with defaults.
+The tasks allow for a great deal of control and customization. The final configuration is a combination of general defaults, platform-specific defaults (such as Node.js, Python, or .NET), and user input. User input takes precedence when it conflicts with defaults.
 
 All common features of Visual Studio Code tasks (for example, grouping tasks into compound tasks) are supported by Docker extension tasks. For more information on common task features and properties, see the Visual Studio Code [custom task](/docs/editor/tasks.md#custom-tasks) documentation.
 
@@ -88,11 +88,11 @@ For Python Docker images, the `docker-build` task infers the following options:
 | `dockerBuild.tag` | The base name of the root workspace folder. |
 | `dockerBuild.pull` | Defaults to true in order to pull new base images before building. |
 
-### .NET Core (docker-build)
+### .NET (docker-build)
 
 **Minimal configuration using defaults**
 
-When you build a .NET Core-based Docker image, you can omit the `platform` property and just set the `netCore` object (`platform` is implicitly set to `netcore` when `netCore` object is present). Note that `appProject` is a required property:
+When you build a .NET-based Docker image, you can omit the `platform` property and just set the `netCore` object (`platform` is implicitly set to `netcore` when `netCore` object is present). Note that `appProject` is a required property:
 
 ```json
 {
@@ -111,7 +111,7 @@ When you build a .NET Core-based Docker image, you can omit the `platform` prope
 
 **Platform defaults**
 
-For .NET Core-based images, the `docker-build` task infers the following options:
+For .NET-based images, the `docker-build` task infers the following options:
 
 | Property | Inferred Value |
 | --- | --- |
@@ -126,10 +126,10 @@ Here are all properties available for configuring `docker-build` task. All prope
 | Property | Description |
 | --- | --- |
 | `dockerBuild` | Options for controlling the `docker build` command executed ([see below](#dockerbuild-object-properties)). <br/> Required unless `platform` is set. |
-| `platform` | Determines the platform: .NET Core (`netcore`) or Node.js (`node`) and default settings for `docker build` command. |
+| `platform` | Determines the platform: .NET (`netcore`) or Node.js (`node`) and default settings for `docker build` command. |
 | `node` | Determines options specific for Node.js projects ([see below](#node-object-properties-dockerbuild-task)). |
 | `python` | There are no object properties for Python in the `docker-build` task. |
-| `netCore` | Determines options specific for .NET Core projects ([see below](#netcore-object-properties-dockerbuild-task)). |
+| `netCore` | Determines options specific for .NET projects ([see below](#netcore-object-properties-dockerbuild-task)). |
 
 ### dockerBuild object properties
 
@@ -154,7 +154,7 @@ Here are all properties available for configuring `docker-build` task. All prope
 
 | Property | Description |
 | --- | --- |
-| `appProject` | The .NET Core project file (`.csproj`, `.fsproj`, etc.) associated with the Dockerfile and `docker-build` task. <br/> Required always.  |
+| `appProject` | The .NET project file (`.csproj`, `.fsproj`, etc.) associated with the Dockerfile and `docker-build` task. <br/> Required always.  |
 
 ## Docker run task
 
@@ -167,9 +167,9 @@ The most important configuration settings for the `docker-run` task are `dockerR
 
 See [property reference](#run-task-reference) for full list of all task properties.
 
-### Platform support
+### Docker run platform support
 
-While the `docker-run` task can be used to run any Docker image, the extension has explicit support (and simplified configuration) for Node.js, Python, and .NET Core.
+While the `docker-run` task can be used to run any Docker image, the extension has explicit support (and simplified configuration) for Node.js, Python, and .NET.
 
 ### Node.js (docker-run)
 
@@ -277,11 +277,11 @@ For Python-based Docker images, the `docker-run` task infers the following optio
 | `dockerRun.containerName` | Derived from the base name of the root workspace folder. |
 | `dockerRun.image` | The tag from a dependent docker-build task (if one exists) or derived from the base name of the root workspace folder. |
 
-### .NET Core (docker-run)
+### .NET (docker-run)
 
 **Minimal configuration using defaults**
 
-When building a .NET Core-based Docker image, you can omit the `platform` property and just set the `netCore` object (`platform` is implicitly set to `netcore` when `netCore` object is present). Note that `appProject` is a required property:
+When building a .NET-based Docker image, you can omit the `platform` property and just set the `netCore` object (`platform` is implicitly set to `netcore` when `netCore` object is present). Note that `appProject` is a required property:
 
 ```json
 {
@@ -300,7 +300,7 @@ When building a .NET Core-based Docker image, you can omit the `platform` proper
 
 **Platform defaults**
 
-For .NET Core-based images, the `docker-run` task infers the following options:
+For .NET-based images, the `docker-run` task infers the following options:
 
 | Property | Inferred Value |
 | --- | --- |
@@ -317,10 +317,10 @@ Here are all properties available for configuring `docker-run` task. All propert
 | Property | Description |
 | --- | --- |
 | `dockerRun` | Options for controlling the `docker run` command executed ([see below](#dockerrun-object-properties)). <br/> Required unless `platform` is set. |
-| `platform` | Determines the platform: .NET Core (`netcore`) or Node.js (`node`) and default settings for `docker run` command. |
+| `platform` | Determines the platform: .NET (`netcore`) or Node.js (`node`) and default settings for `docker run` command. |
 | `node` | For Node.js projects, this controls various options ([see below](#node-object-properties-dockerrun-task)). |
 | `python` | For Python projects, this controls various options ([see below](#python-object-properties-dockerrun-task)). |
-| `netCore` | For .NET Core projects, this controls various options ([see below](#netcore-object-properties-dockerrun-task)). |
+| `netCore` | For .NET projects, this controls various options ([see below](#netcore-object-properties-dockerrun-task)). |
 
 ### dockerRun object properties
 
@@ -388,7 +388,7 @@ Here are all properties available for configuring `docker-run` task. All propert
 
 | Property | Description |
 | --- | --- |
-| `appProject` | The .NET Core project file (`.csproj`, `.fsproj`, etc.) associated with `docker-run` task. <br/> Required. |
+| `appProject` | The .NET project file (`.csproj`, `.fsproj`, etc.) associated with `docker-run` task. <br/> Required. |
 | `configureSsl` | Whether to configure ASP.NET Core SSL certificates and other settings to enable SSL on the service in the container. |
 | `enableDebugging` | Whether to enable the started container for debugging. This will infer additional volume mappings and other options necessary for debugging. |
 
@@ -403,6 +403,7 @@ The most important configuration setting for the `docker-compose` task is `docke
 See [property reference](#compose-task-reference) for full list of all task properties.
 
 **Example configuration**
+
 ```json
 {
     "version": "2.0.0",
@@ -443,6 +444,8 @@ Here are all properties available for configuring `docker-compose` task. All pro
 | `up` | Run a `docker-compose up` command. <br/> Either this or `down` must be specified, but not both. | `docker-compose up` |
 | `down` | Run a `docker-compose down` command. <br/> Either this or `up` must be specified, but not both. | `docker-compose down` |
 | `files` | The list of Docker Compose YAML files to use in the `docker-compose` command. If not specified, the Docker Compose CLI looks for `docker-compose.yml` and `docker-compose.override.yml`. | `-f <file>` |
+| `envFile` | File of environment variables read in and applied to the containers. | `--env-file <file>` |
+| `projectName` | Alternate project name to use when naming and labeling Docker objects. If using an alternate project name when composing up, the same project name must be specified when composing down. | `--project-name <name>` |
 
 ### up object properties
 
@@ -522,7 +525,7 @@ The command template chosen to execute is selected based on the following rules:
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.build` | `docker build --rm -f "${dockerfile}" -t ${tag} "${context}"` |
+| `docker.commands.build` | `${config:docker.dockerPath} build --rm -f "${dockerfile}" -t ${tag} "${context}"` |
 
 Supported tokens:
 
@@ -540,8 +543,8 @@ Supported tokens:
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.run` | `docker run --rm -d ${exposedPorts} ${tag}` |
-| `docker.commands.runInteractive` | `docker run --rm -it ${exposedPorts} ${tag}` |
+| `docker.commands.run` | `${config:docker.dockerPath} run --rm -d ${exposedPorts} ${tag}` |
+| `docker.commands.runInteractive` | `${config:docker.dockerPath} run --rm -it ${exposedPorts} ${tag}` |
 
 Supported tokens:
 
@@ -556,7 +559,7 @@ Supported tokens:
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.attach` | `docker exec -it ${containerId} ${shellCommand}`
+| `docker.commands.attach` | `${config:docker.dockerPath} exec -it ${containerId} ${shellCommand}`
 
 Supported tokens:
 
@@ -571,7 +574,7 @@ Supported tokens:
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.logs` | `docker logs -f ${containerId}`
+| `docker.commands.logs` | `${config:docker.dockerPath} logs -f ${containerId}`
 
 Supported tokens:
 
@@ -585,7 +588,7 @@ Supported tokens:
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.composeUp` | `docker-compose ${configurationFile} up ${detached} ${build}` |
+| `docker.commands.composeUp` | `${composeCommand} ${configurationFile} up ${detached} ${build}` |
 
 Supported tokens:
 
@@ -596,18 +599,20 @@ Supported tokens:
 | `${build}` | Set to `--build` if the configuration setting `docker.dockerComposeBuild` is set to `true`. Otherwise, set to `""`. |
 | `${serviceList}` | If specified, prompts for a subset of the services to start when the command is run. |
 | `${profileList}` | If specified and the Docker Compose YAML file contains profiles, prompts for a subset of the profiles to start when the command is run. |
+| `${composeCommand}` | Set to the value of the `docker.composeCommand` setting if set, otherwise the extension will try to automatically determine the command to use (`docker compose` or `docker-compose`). |
 
 ### Docker Compose Down
 
 | Configuration Setting | Default Value |
 |--|--|
-| `docker.commands.composeDown` | `docker-compose ${configurationFile} down` |
+| `docker.commands.composeDown` | `${composeCommand} ${configurationFile} down` |
 
 Supported tokens:
 
 | Token | Description |
 | -- | -- |
 | `${configurationFile}` | Set to `-f` plus the workspace-relative path to the selected Docker Compose YAML file. |
+| `${composeCommand}` | Set to the value of the `docker.composeCommand` setting if set, otherwise the extension will try to automatically determine the command to use (`docker compose` or `docker-compose`). |
 
 ### Additional supported tokens
 

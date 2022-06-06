@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 282670bb-cc72-4b01-9b51-08bf8f5a13a1
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Learn how to run extensions in Visual Studio Code for the web and the web extension host.
@@ -314,14 +314,6 @@ npx: installed 78 in 2.196s
    └───────────────────────────────────────────────────┘
 
 ```
-
-**Chromium-based browsers**
-
-If you are using Edge, Chrome or any Chromium-based browser, open [vscode.dev](https://vscode.dev), run **Developer: Install Web Extension...** from the Command Palette, and give "http://localhost:5000" as the address.
-
-**Other browsers**
-
-If you are not using a Chromium browser, you can use the following steps:
 
 Open another terminal and run `npx localtunnel -p 5000`:
 

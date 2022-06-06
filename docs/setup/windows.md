@@ -4,7 +4,7 @@ Area: setup
 TOCTitle: Windows
 ContentId: 4670C281-5761-46E6-8C46-10D523946FFB
 PageTitle: Running Visual Studio Code on Windows
-DateApproved: 11/4/2021
+DateApproved: 5/5/2022
 MetaDescription: Get Visual Studio Code up and running on Windows
 ---
 # Visual Studio Code on Windows
@@ -13,11 +13,9 @@ MetaDescription: Get Visual Studio Code up and running on Windows
 
 1. Download the [Visual Studio Code installer](https://go.microsoft.com/fwlink/?LinkID=534107) for Windows.
 2. Once it is downloaded, run the installer (VSCodeUserSetup-{version}.exe). This will only take a minute.
-3. By default, VS Code is installed under `C:\users\{username}\AppData\Local\Programs\Microsoft VS Code`.
+3. By default, VS Code is installed under `C:\Users\{Username}\AppData\Local\Programs\Microsoft VS Code`.
 
 Alternatively, you can also download a [Zip archive](/docs/?dv=winzip), extract it and run Code from there.
-
->**Note:** .NET Framework 4.5.2 or higher is required for VS Code. If you are using Windows 7, make sure you have at least [.NET Framework 4.5.2](https://www.microsoft.com/download/details.aspx?id=42643) installed. You can check your version of .NET Framework using this command, `reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\full" /v version` from a command prompt.
 
 >**Tip:** Setup will add Visual Studio Code to your `%PATH%`, so from the console you can type 'code .' to open VS Code on that folder. You will need to restart your console after the installation for the change to the `%PATH%` environmental variable to take effect.
 
@@ -41,7 +39,7 @@ VS Code ships monthly [releases](/updates) and supports auto-update when a new r
 
 ## Windows Subsystem for Linux
 
-Windows is a popular operating system and it can be a great cross-platform development environment. This section describes cross-platform features such as the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install-win10) (WSL) and the new Windows Terminal.
+Windows is a popular operating system and it can be a great cross-platform development environment. This section describes cross-platform features such as the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) (WSL) and the new Windows Terminal.
 
 ### Recent Windows build
 
@@ -89,7 +87,7 @@ Try using the [zip file](/docs/?dv=winzip) instead of the installer.  To use thi
 
 ### Icons are missing
 
-I installed Visual Studio Code on my Windows 7 or 8 machine. Why are some icons not appearing in the workbench and editor?
+I installed Visual Studio Code on my Windows 8 machine. Why are some icons not appearing in the workbench and editor?
 
 VS Code uses [SVG](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) icons and we have found instances where the .SVG file extension is associated with something other than `image/svg+xml`. We're considering options to fix it, but for now here's a workaround:
 

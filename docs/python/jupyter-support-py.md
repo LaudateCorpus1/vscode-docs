@@ -4,7 +4,7 @@ Area: python
 TOCTitle: Python Interactive
 ContentId: C26E4F82-C6CD-4C52-818F-31A95F58207E
 PageTitle: Working with Jupyter code cells in the Python Interactive window
-DateApproved: 8/6/2021
+DateApproved: 12/1/2021
 MetaDescription: Working with Jupyter code cells in the Python Interactive window
 MetaSocialImage: images/tutorial/social.png
 ---
@@ -54,7 +54,7 @@ Selecting a command starts Jupyter (if necessary, which might take a minute), th
 
 You can also run code cells using (`kbstyle(Ctrl+Enter)`) or the **Python: Run Selection/Line in Python Terminal** command (`kbstyle(Shift+Enter)`). After using this command, the Python extension automatically moves the cursor to the next cell. If you're in the last cell in the file, the extension automatically inserts another `# %%` delimiter for a new cell, mimicking the behavior of a Jupyter notebook.
 
-You can also click in the margin to the left of line numbers to set breakpoints. Then you can use **Debug Cell** to start a debugging session for that code cell. The debugger stops execution at breakpoints and allows you to step through code one line at a time and inspect variables (see [Debugging](debugging.md) for details).
+You can also click in the margin to the left of line numbers to set breakpoints. Then you can use **Debug Cell** to start a debugging session for that code cell. The debugger stops execution at breakpoints and allows you to step through code one line at a time and inspect variables (see [Debugging](/docs/editor/debugging.md) for details).
 
 ### Additional commands and keyboard shortcuts
 
@@ -75,10 +75,9 @@ The following table lists additional commands and keyboard shortcuts supported w
 |Python: Change Cell to Code              | `kbstyle(Ctrl+; C)`        |
 |Python: Change Cell to Markdown          | `kbstyle(Ctrl+; M)`        |
 
-## Python Interactive window
+## Using the Python Interactive window
 
-The **Python Interactive** window, mentioned in the previous section, can be used as a standalone console with arbitrary code (with or without code cells).
-To use the window as a console, open it with the **Jupyter: Create Interactive Window** command from the Command Palette. You can then type in code, using `kbstyle(Enter)` to go to a new line and `kbstyle(Shift+Enter)` to run the code.
+The **Python Interactive** window, mentioned in the previous section, can be used as a standalone console with arbitrary code (with or without code cells). To use the window as a console, open it with the **Jupyter: Create Interactive Window** command from the Command Palette. You can then type in code, using `kbstyle(Enter)` to go to a new line and `kbstyle(Shift+Enter)` to run the code.
 
 To use the window with a file, use the **Jupyter: Run Current File in Python Interactive Window** command from the Command Palette.
 
